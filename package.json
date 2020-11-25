@@ -11,9 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "c3": "^0.7.20",
+    "d3": "6.2.0",
     "css-loader": "^5.0.1",
-    "d3-format": "^2.0.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.0.5",
     "style-loader": "^2.0.0"
