@@ -1,0 +1,47 @@
+[
+  {
+    "amount": 184331307.0,
+    "item": "Urban development grant",
+    "phase": "Amount budgeted"
+  },
+  {
+    "amount": 180000000.0,
+    "item": "Urban development grant",
+    "phase": "Transferred up to 2021 Q3"
+  },
+  {
+    "amount": 17000000.0,
+    "item": "Urban development grant",
+    "phase": "Spent up to 2021 Q3"
+  },
+  {
+    "amount": 413280935.0,
+    "item": "Local Government Financial Management Grant",
+    "phase": "Amount budgeted"
+  },
+  {
+    "amount": 423280935.0,
+    "item": "Local Government Financial Management Grant",
+    "phase": "Transferred up to 2021 Q3"
+  },
+  {
+    "amount": 433280935.0,
+    "item": "Local Government Financial Management Grant",
+    "phase": "Spent up to 2021 Q3"
+  },
+  {
+    "amount": 0.0,
+    "item": "Neighbourhood Development Grant",
+    "phase": "Amount budgeted"
+  },
+  {
+    "amount": 709214.0,
+    "item": "Neighbourhood Development Grant",
+    "phase": "Transferred up to 2021 Q3"
+  },
+  {
+    "amount": 609214.0,
+    "item": "Neighbourhood Development Grant",
+    "phase": "Spent up to 2021 Q3"
+  }
+]
