@@ -1,0 +1,12 @@
+[
+  {
+    "amount": 164677610,
+    "percentage": 67.6,
+    "label": "Locally generated"
+  },
+  {
+    "amount": 78941310,
+    "percentage": 32.4,
+    "label": "Transfers"
+  }
+]
