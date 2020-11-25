@@ -2,11 +2,9 @@
   {
     "amount": 10,
     "percentage": 1,
-    "label": "Locally generated"
   },
   {
     "amount": 990,
     "percentage": 99,
-    "label": "Transfers"
   }
 ]

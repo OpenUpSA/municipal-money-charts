@@ -1,0 +1,14 @@
+[
+  {
+    "amount": 100,
+    "label": "Equitable share"
+  },
+  {
+    "amount": 10,
+    "label": "National conditional grants"
+  },
+  {
+    "amount": 10,
+    "label": "Provincial transfers"
+  }
+]
