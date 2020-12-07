@@ -1,0 +1,72 @@
+[
+  {
+    "amount": 320000000,
+    "financial_year": "2015-16",
+    "budget_phase": "Original budget"
+  },
+  {
+    "amount": 330000000,
+    "financial_year": "2015-16",
+    "budget_phase": "Adjusted budget"
+  },
+  {
+    "amount": 325000000,
+    "financial_year": "2015-16",
+    "budget_phase": "Audited outcome"
+  },
+  {
+    "amount": 330000000,
+    "financial_year": "2016-17",
+    "budget_phase": "Original budget"
+  },
+  {
+    "amount": 3320000000,
+    "financial_year": "2016-17",
+    "budget_phase": "Adjusted budget"
+  },
+  {
+    "amount": 335000000,
+    "financial_year": "2016-17",
+    "budget_phase": "Audited outcome"
+  },
+  {
+    "amount": 340000000,
+    "financial_year": "2017-18",
+    "budget_phase": "Original budget"
+  },
+  {
+    "amount": 330000000,
+    "financial_year": "2017-18",
+    "budget_phase": "Adjusted budget"
+  },
+  {
+    "amount": 325000000,
+    "financial_year": "2017-18",
+    "budget_phase": "Audited outcome"
+  },
+  {
+    "amount": 350000000,
+    "financial_year": "2018-19",
+    "budget_phase": "Original budget"
+  },
+  {
+    "amount": 350000000,
+    "financial_year": "2018-19",
+    "budget_phase": "Adjusted budget"
+  },
+  {
+    "amount": 350000000,
+    "financial_year": "2018-19",
+    "budget_phase": "Audited outcome"
+  },
+  {
+    "amount": 355000000,
+    "financial_year": "2019-2020",
+    "budget_phase": "Forecast as at 2018-19 Q1"
+  },
+  {
+    "amount": 348000000,
+    "financial_year": "2020-2021",
+    "budget_phase": "Forecast as at 2018-19 Q1"
+  }
+]

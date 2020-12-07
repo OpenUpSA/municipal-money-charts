@@ -1,0 +1,38 @@
+[
+  {
+    "comparison": "Original to Adjusted budget",
+    "item": "Interest Earned - Outstanding Debtors",
+    "amount": -79964000,
+    "percentage_change": -14.6278769
+  },
+  {
+    "comparison": "Original budget to Audited outcome",
+    "item": "Interest Earned - Outstanding Debtors",
+    "amount": -265246643,
+    "percentage_change": -36.23897422,
+  },
+  {
+    "comparison": "Original to Adjusted budget",
+    "item": "Rent Of Facilities And Equipment",
+    "amount": 7028928,
+    "percentage_change": 4.853045495,
+  },
+  {
+    "comparison": "Original budget to Audited outcome",
+    "item": "Rent Of Facilities And Equipment",
+    "amount": 8764518,
+    "percentage_change": 6.124758528,
+  }
+  {
+    "comparison": "Original to Adjusted budget",
+    "item": "Service Charges",
+    "amount": 134610917,
+    "percentage_change": 0.7721989923,
+  },
+  {
+    "comparison": "Original budget to Audited outcome",
+    "item": "Service Charges",
+    "amount": 645718959,
+    "percentage_change": 3.816070018,
+  }
+]
