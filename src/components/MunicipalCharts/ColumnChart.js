@@ -114,20 +114,20 @@ export default class ColumnChart {
     _setAxes() {
 
         let periodArray = this.chart.data[0].data.map(function (d) {
-            return d.period
+            return d.period;
         });
 
         this.chart.config.x.domain(periodArray);
 
         let muniMaxes = this.chart.data.map(function (d) {
             return d3Max(d.data, function (e) {
-                return e.value
+                return e.value;
             })
         });
 
         this.chart.config.y.domain([
             0, d3Max(muniMaxes, function (d) {
-                return d
+                return d;
             })
         ]);
 
@@ -186,7 +186,7 @@ export default class ColumnChart {
 
         self.chart.data.forEach(function (d) {
             d.data.forEach(function (muniData) {
-                newData.push({municipality: d.municipality, value: muniData.value, fillColor: muniData.fillColor, period: muniData.period})
+                newData.push({municipality: d.municipality, value: muniData.value, fillColor: muniData.fillColor, period: muniData.period});
             })
         })
 
@@ -206,12 +206,16 @@ export default class ColumnChart {
         col.append('rect')
             .attr('class', 'rect');
 
+        col.append('rect')
+            .attr('class', 'rectCorners');
+
         colGroups.select('.rect')
             .attr('fill', d => d.fillColor)
+            .attr('rx', 5)
             .attr('x', function (d, i, a) {
                 let periodArray = newData.filter(obj => obj.period === d.period).map(obj => obj.municipality.code);
                 let elementIndex = periodArray.findIndex(o => o == d.municipality.code);
-                return self.chart.config.x(d.period) + (self.chart.config.x.bandwidth() / 8) + ((self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length) * elementIndex
+                return self.chart.config.x(d.period) + (self.chart.config.x.bandwidth() / 8) + ((self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length) * elementIndex;
             })
             .transition().duration(500)
             .attr('width', (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5)
@@ -219,6 +223,18 @@ export default class ColumnChart {
             .attr('height', d => Math.abs(self.chart.config.y(d.value) - self.chart.config.y(0)))
             .attr('colid', d => d.municipality.code);
 
+        colGroups.select('.rectCorners')
+            .attr('fill', d => d.fillColor)
+            .attr('x', function (d, i, a) {
+                let periodArray = newData.filter(obj => obj.period === d.period).map(obj => obj.municipality.code);
+                let elementIndex = periodArray.findIndex(o => o == d.municipality.code);
+                return self.chart.config.x(d.period) + (self.chart.config.x.bandwidth() / 8) + ((self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length) * elementIndex;
+            })
+            .transition().duration(500)
+            .attr('width', (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5)
+            .attr('y', d => d.value > 0 ? self.chart.config.y(0)-5 :  self.chart.config.y(0))
+            .attr('height', 5)
+            .attr('colid', d => d.municipality.code);
 
         /* LABELS */
 
@@ -229,7 +245,7 @@ export default class ColumnChart {
         labelGroups.exit().remove();
 
         let label = labelGroups.enter().append('g')
-            .attr('class', 'labelGroup')
+            .attr('class', 'labelGroup');
 
         label.append('rect')
             .attr('class', 'labelBackground');
@@ -240,30 +256,30 @@ export default class ColumnChart {
         labelGroups.select('.label')
             .text(d => `${formatter(d.value, self.chart.data[0].resultType)}`)
             .attr('x', (d, i, a) => {
-                let labelWidth = d3Select(a[i]).node().getBBox().width
+                let labelWidth = d3Select(a[i]).node().getBBox().width;
                 let periodArray = newData.filter(obj => obj.period === d.period).map(obj => obj.municipality.code);
                 let elementIndex = periodArray.findIndex(o => o == d.municipality.code);
-                let colWidth = (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5     
-                return self.chart.config.x(d.period) + (self.chart.config.x.bandwidth() / 8) + ((self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length) * elementIndex + (colWidth / 2) - (labelWidth / 2)
+                let colWidth = (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5;     
+                return self.chart.config.x(d.period) + (self.chart.config.x.bandwidth() / 8) + ((self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length) * elementIndex + (colWidth / 2) - (labelWidth / 2);
             })
             .attr('y', d => {
-                return self.chart.config.y(d.value) - 20
+                return self.chart.config.y(d.value) - 20;
             })
             .attr('fill', '#000')
             .attr('colid', d => d.municipality.code);
 
         labelGroups.select('.labelBackground')
             .attr('x', (d, i, a) => {
-                return d3Select(a[i].parentNode).select('.label').node().getBBox().x - 8
+                return d3Select(a[i].parentNode).select('.label').node().getBBox().x - 8;
             })
             .attr('y', (d, i, a) => {
-                return d3Select(a[i].parentNode).select('.label').node().getBBox().y - 4
+                return d3Select(a[i].parentNode).select('.label').node().getBBox().y - 4;
             })
             .attr('fill', '#fff').attr('rx', 5).attr('height', (d, i, a) => {
-                return d3Select(a[i].parentNode).select('.label').node().getBBox().height + 8
+                return d3Select(a[i].parentNode).select('.label').node().getBBox().height + 8;
             })
             .attr('width', (d, i, a) => {
-                return d3Select(a[i].parentNode).select('.label').node().getBBox().width + 16
+                return d3Select(a[i].parentNode).select('.label').node().getBBox().width + 16;
             })
             .attr('colid', d => d.municipality.code);
 
@@ -306,7 +322,7 @@ export default class ColumnChart {
 
       let mediansContainer = d3Select(self.chart.config.bindto + ' .medians');
 
-      let medianLines = mediansContainer.selectAll('.median').data(self.chart.medians)
+      let medianLines = mediansContainer.selectAll('.median').data(self.chart.medians);
 
       medianLines.enter().append('line').attr('class', 'median').attr('stroke', '#000').attr('stroke-dasharray', '3px');
 
@@ -321,7 +337,7 @@ export default class ColumnChart {
     removeMedians() {
 
       let periodArray = this.chart.data[0].data.map(function (d) {
-          return d.period
+          return d.period;
       });
 
       let medianArray = [];

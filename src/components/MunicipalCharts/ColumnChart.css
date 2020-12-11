@@ -13,8 +13,12 @@
 }
 
 
-.rect.focus  {
-    fill: rgba(0,0,0,0.5)
+.rect.focus {
+    fill: #adadad
+}
+
+.rectCorners.focus {
+    fill:#adadad
 }
 
 
