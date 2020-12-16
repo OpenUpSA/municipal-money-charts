@@ -47,11 +47,11 @@ export default class GroupedIntencityBarChart extends MunicipalChart {
         const bar = track.select('.bar')
 
         bar.select('.bar-label').classed('external', function (d) {
-          return (this.clientWidth > bar.node().clientWidth ) && (
-            d.amount < 0 
-              ? bar.node().offsetLeft > this.clientWidth 
-              : (track.node().offsetWidth - (bar.node().offsetLeft + bar.node().offsetWidth)) > this.clientWidth
-          )
+          return this.clientWidth > bar.node().clientWidth
+        })
+        .classed('flip', function(d) { return d.amount < 0 
+          ? bar.node().offsetLeft < this.clientWidth 
+          : (track.node().offsetWidth - (bar.node().offsetLeft + bar.node().offsetWidth)) < this.clientWidth
         })
       })
     }
@@ -257,5 +257,12 @@ export default class GroupedIntencityBarChart extends MunicipalChart {
 
   groups () {
     return Array.from(this.d3.group(this.data(), d => d[this._barGroupingField]), ([group, series]) => ({ group, series }))
+  }
+
+  destroy () {
+    this._labelResizeObserver.disconnect()
+    this._barResizeObserver.disconnect()
+    this._axisObserver.disconnect()
+    this.updateProvider = null
   }
 }

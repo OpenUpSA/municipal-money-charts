@@ -45,7 +45,7 @@ const barGroupingOptions = {
 }
 
 
-const story = ({ width, smallBreakpoint, dataName, format, highlight, intensityLabelField, barGroupingField, xAxisLabel, labelFormat }) => {
+const story = ({ width, smallBreakpoint, dataName, format, highlight, intensityLabelField, barGroupingField, xAxisLabel, labelFormat, destroy }) => {
     chart.data(dataOptions[dataName])
         .format(formatOptions[format])
         .smallBreakpoint(smallBreakpoint)
@@ -55,6 +55,11 @@ const story = ({ width, smallBreakpoint, dataName, format, highlight, intensityL
         .barGroupingField(barGroupingOptions[barGroupingField])
         .xAxisLabel(xAxisLabel)
         .labelFormat(labelFormatOptions[labelFormat])
+
+    if (destroy) {
+        chart.destroy()
+    }
+
     return chart.node
 } 
 
@@ -112,6 +117,11 @@ story.argTypes = {
         control: {
             type: 'text'
         }
+    },
+    destroy: {
+        control: {
+            type: 'boolean'
+        }
     }
 }
 
@@ -124,5 +134,6 @@ story.args = {
     labelFormat: Object.keys(labelFormatOptions)[0],
     intensityLabelField: Object.keys(intensityLabelOptions)[0],
     barGroupingField: Object.keys(barGroupingOptions)[0],
-    xAxisLabel: 'Original budget'
+    xAxisLabel: 'Original budget',
+    destroy: false
 }

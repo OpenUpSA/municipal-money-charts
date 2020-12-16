@@ -25,8 +25,13 @@ const subLabelOptions = {
     "Option 1": d => [`Number of people on the moon: ${d.amount}`]
 }
 
-const story = ({ width, dataName, mainLabel, subLabel }) => {
+const story = ({ width, dataName, mainLabel, subLabel, destroy }) => {
     chart.data(dataOptions[dataName]).width(width).mainLabel(mainLabelOptions[mainLabel]).subLabel(subLabelOptions[subLabel])
+
+    if (destroy) {
+        chart.destroy()
+    }
+
     return chart.node
 }
 
@@ -55,6 +60,9 @@ story.argTypes = {
             type: 'select',
             options: Object.keys(subLabelOptions)
         }
+    },
+    destroy: {
+        control: 'boolean'
     }
 }
 
@@ -62,7 +70,8 @@ story.args = {
     width: '',
     dataName: Object.keys(dataOptions)[0],
     mainLabel: Object.keys(mainLabelOptions)[0],
-    subLabel: Object.keys(subLabelOptions)[0]
+    subLabel: Object.keys(subLabelOptions)[0],
+    destroy: false
 }
 
 story.storyName = "Percentage Stacked Chart"

@@ -98,6 +98,11 @@
                 &.external {
                   transform: translateX(0%);
                   color: #666666;
+
+                  &.flip {
+                    left: 0;
+                    transform: translateX(100%);
+                  }
                 }
               }
 
@@ -111,6 +116,11 @@
                   &.external {
                     transform: translateX(-100%);
                     color: #666666;
+
+                    &.flip {
+                      left: 100%;
+                      transform: translateX(0%);
+                    }
                   }
                 }
               }

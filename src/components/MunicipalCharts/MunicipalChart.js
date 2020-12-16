@@ -42,7 +42,7 @@ export default class MunicipalChart {
   update () {
     if (this._scheduledUpdate === undefined) {
       this._scheduledUpdate = window.requestAnimationFrame(() => {
-        this.updateProvider()
+        this.updateProvider && this.updateProvider()
         this._scheduledUpdate = undefined
       })
     }
@@ -98,5 +98,10 @@ export default class MunicipalChart {
 
   toKebabCase (value) {
     return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+  }
+
+  destroy () {
+    // the method must be called before removing the component
+    // must be extended
   }
 }

@@ -37,7 +37,7 @@ const groupOptions = {
     'financial_year': 'financial_year'
 }
 
-const story = ({ width, smallBreakpoint, dataName, groupBars, seriesField, highlight, format }) => {
+const story = ({ width, smallBreakpoint, dataName, groupBars, seriesField, highlight, format, destroy }) => {
     chart.data(dataOptions[dataName])
         .format(formatOptions[format])
         .smallBreakpoint(smallBreakpoint)
@@ -45,6 +45,11 @@ const story = ({ width, smallBreakpoint, dataName, groupBars, seriesField, highl
         .highlight(highlightOptions[highlight])
         .seriesField(seriesFieldOptions[seriesField])
         .groupBars(groupOptions[groupBars])
+
+    if (destroy) {
+        chart.destroy()
+    }
+
     return chart.node
 }
 
@@ -91,6 +96,11 @@ story.argTypes = {
             type: 'select',
             options: Object.keys(formatOptions)
         }
+    },
+    destroy: {
+        control: {
+            type: 'boolean'
+        }
     }
 }
 
@@ -101,5 +111,6 @@ story.args = {
     seriesField: Object.keys(seriesFieldOptions)[0],
     groupBars: Object.keys(groupOptions)[0],
     highlight: Object.keys(highlightOptions)[0],
-    format: Object.keys(formatOptions)[0]
+    format: Object.keys(formatOptions)[0],
+    destroy: false
 }

@@ -1,4 +1,6 @@
 .municipal-chart {
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
   font-family: Rubik, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -6,7 +8,7 @@
   --tooltip-arrow-height: 3px;
   --tooltip-gap: 4px;
 
-  .tooltip {
+  .chart-tooltip {
       position: relative;
 
       &:before, &:after {

@@ -118,7 +118,7 @@ export default class GroupedBarChart extends MunicipalChart {
                         }
                       })
                   })
-                  .classed('bar tooltip top', true)
+                  .classed('bar chart-tooltip top', true)
                   .attr('data-tooltip', d => format(d.amount))
                   .transition()
                   .style('flex-grow', d => d.amount / compareValue)
@@ -198,5 +198,10 @@ export default class GroupedBarChart extends MunicipalChart {
 
   groups () {
     return Array.from(this.d3.group(this.data(), d => d[this._groupBars]), ([group, series]) => ({ group, series }))
+  }
+
+  destroy () {
+    this._valueResizeObserver.disconnect()
+    this.updateProvider = null
   }
 }

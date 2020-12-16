@@ -14,11 +14,7 @@ export default class OverlayBarChart extends MunicipalChart {
   valueResizeHandler () {
     return entries => {
       let maxWidth = entries.reduce((maxWidth, entry) => {
-        let width = (entry.contentBoxSize && entry.contentBoxSize[0] && entry.contentBoxSize[0].inlineSize) ||
-                (entry.contentBoxSize && entry.contentBoxSize.inlineSize) ||
-                entry.contentRect.width
-
-        return Math.max(maxWidth, width)
+        return Math.max(maxWidth, entry.contentRect.width)
       }, 0)
 
       d3.selectAll('.item-value').style('min-width', `${maxWidth}px`)
@@ -84,10 +80,16 @@ export default class OverlayBarChart extends MunicipalChart {
                 .join('span')
                 .classed('item-value', true)
                 .style('min-width', 'auto')
-                .each(function () {
-                  valueResizeObserver.observe(this)
+                .call(itemValue => {
+                  itemValue.selectAll('.item-value-body')
+                    .data(d => [d])
+                    .join('div')
+                    .classed('item-value-body', true)
+                    .each(function () {
+                      valueResizeObserver.observe(this)
+                    })
+                    .text(mainBarValue)
                 })
-                .text(mainBarValue)
             })
       })
   }
@@ -141,5 +143,10 @@ export default class OverlayBarChart extends MunicipalChart {
 
   maxBarValue () {
     return this.data().reduce((acc, curr) => Math.max(acc, curr.amount), 0)
+  }
+
+  destroy () {
+    this._valueResizeObserver.disconnect()
+    this.updateProvider = null
   }
 }

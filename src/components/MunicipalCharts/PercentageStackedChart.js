@@ -149,4 +149,9 @@ export default class PercentageStackedChart extends MunicipalChart {
   totalAmount () {
     return this.data().reduce((acc, curr) => acc + curr.amount, 0)
   }
+
+  destroy () {
+    this._itemResizeObserver.disconnect()
+    this.updateProvider = null
+  }
 }

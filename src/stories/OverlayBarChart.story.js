@@ -35,13 +35,18 @@ const orderOptions = {
     [`${phasesForMissing.join(' -> ')} (for missng data)`]: phasesForMissing
 }
 
-const story = ({ width, smallBreakpoint, dataName, format, order }) => {
-    return chart.data(dataOptions[dataName])
+const story = ({ width, smallBreakpoint, dataName, format, order, destroy }) => {
+    chart.data(dataOptions[dataName])
         .format(formatOptions[format])
         .smallBreakpoint(smallBreakpoint)
         .width(width)
         .seriesOrder(orderOptions[order])
-        .node
+
+    if (destroy) {
+        chart.destroy()
+    }
+
+    return chart.node
 }
 
 export default story
@@ -76,6 +81,11 @@ story.argTypes = {
             type: 'select',
             options: Object.keys(orderOptions)
         }
+    },
+    destroy: {
+        control: {
+            type: 'boolean'
+        }
     }
 }
 
@@ -84,5 +94,6 @@ story.args = {
     smallBreakpoint: 300,
     dataName: Object.keys(dataOptions)[0],
     format: Object.keys(formatOptions)[0],
-    order: Object.keys(orderOptions)[0]
+    order: Object.keys(orderOptions)[0],
+    destroy: false
 }

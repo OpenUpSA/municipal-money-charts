@@ -22,8 +22,13 @@ const formatOptions = {
     'default currency': d3Format.format('($.2f')
 }
 
-const story = ({ width, smallBreakpoint, dataName, format }) => {
+const story = ({ width, smallBreakpoint, dataName, format, destroy }) => {
     chart.data(dataOptions[dataName]).format(formatOptions[format]).smallBreakpoint(smallBreakpoint).width(width)
+
+    if (destroy) {
+        chart.destroy()
+    }
+
     return chart.node
 } 
 
@@ -53,6 +58,11 @@ story.argTypes = {
             type: 'select',
             options: Object.keys(formatOptions)
         }
+    },
+    destroy: {
+        control: {
+            type: 'boolean'
+        }
     }
 }
 
@@ -60,5 +70,6 @@ story.args = {
     width: '',
     smallBreakpoint: 300,
     dataName: Object.keys(dataOptions)[0],
-    format: Object.keys(formatOptions)[0]
+    format: Object.keys(formatOptions)[0],
+    destroy: false
 }
