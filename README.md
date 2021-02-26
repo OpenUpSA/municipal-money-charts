@@ -1,6 +1,6 @@
 # municipal-money-charts
 
-See the stories for usage examples.
+See the stories for usage examples and [previews](https://municipal-money-charts.netlify.app/).
 
 
 ### Development
