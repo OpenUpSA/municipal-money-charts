@@ -201,7 +201,8 @@ export default class ColumnChart {
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
-          .on('mouseout', self._colMouseOut.bind(self));
+          .on('mouseout', self._colMouseOut.bind(self))
+          .on('click', self.GetColClickValue.bind(self));
 
         col.append('rect')
             .attr('class', 'rect');
@@ -275,7 +276,9 @@ export default class ColumnChart {
 
 
     }
-
+    GetColClickValue(d){
+        return d.target.attributes['colid'].value;
+    }
 
     _colMouseOver(d) {
 
