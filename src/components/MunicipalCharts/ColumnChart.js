@@ -38,16 +38,21 @@ const humaniseRand = (x, longForm) => {
 }
 
 const formatter = (d, resultType) => {
-    if (resultType == 'currency') {
-        return humaniseRand(d, false);
-    } else if (resultType == 'months') {
-        return Math.round(d * 10) / 10;
-    } else if (resultType == 'percentage') {
-        return Math.round(d * 10) / 10 + '%';
-    } else if (resultType == 'ratio') {
-        return Math.round(d * 10) / 10;
-    } else {
-        return d;
+    if (d || d === 0 || d === -0) {
+        if (resultType == 'currency') {
+            return humaniseRand(d, false);
+        } else if (resultType == 'months') {
+            return Math.round(d * 10) / 10;
+        } else if (resultType == 'percentage') {
+            return Math.round(d * 10) / 10 + '%';
+        } else if (resultType == 'ratio') {
+            return Math.round(d * 10) / 10;
+        } else {
+            return d;
+        }
+    }
+    else {
+        return "Not available";
     }
 }
 
