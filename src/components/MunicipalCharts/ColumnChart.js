@@ -38,17 +38,13 @@ const humaniseRand = (x, longForm) => {
 }
 
 const formatter = (d, resultType) => {
-    if (d || d === 0 || d === -0) {
-        if (resultType == 'currency') {
-            return humaniseRand(d, false);
-        } else if (resultType == 'months') {
-            return Math.round(d * 10) / 10;
-        } else if (resultType == 'percentage') {
-            return Math.round(d * 10) / 10 + '%';
-        } else if (resultType == 'ratio') {
-            return Math.round(d * 10) / 10;
-        } else {
-            return d;
+    if (d || d === 0) {
+        switch(resultType) {
+            case "currency": return humaniseRand(d, false);
+            case "months": return Math.round(d * 10) / 10;
+            case "percentage": return Math.round(d * 10) / 10 + "%";
+            case "ratio": return Math.round(d * 10) / 10;
+            default: return d;
         }
     }
     else {
