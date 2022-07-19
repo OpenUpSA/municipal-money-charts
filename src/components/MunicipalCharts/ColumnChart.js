@@ -38,7 +38,7 @@ const humaniseRand = (x, longForm) => {
 }
 
 const formatter = (d, resultType) => {
-    if (d || d === 0 || d === -0) {
+    if (d || d === 0) {
         switch(resultType) {
             case "currency": return humaniseRand(d, false);
             case "months": return Math.round(d * 10) / 10;
