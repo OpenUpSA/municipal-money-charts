@@ -136,10 +136,19 @@ export default class OverlayBarChart extends MunicipalChart {
         d3.index(validValues.map(matchClass), d => d.className)
       )
     })
-
-    return groups
+    // ensure main bar is always ordered and displayed before top or bottom bars
+    let tempGroup = []
+    groups.forEach(group => {
+      let tempBar = {}
+      tempBar["item"] = group.item
+      tempBar["data"] = {}
+      this._barClasses.forEach(barClass => {
+        tempBar["data"][barClass] = group.data[barClass]
+      })
+      tempGroup.push(tempBar)
+    })
+    return tempGroup
   }
-
 
   maxBarValue () {
     return this.data().reduce((acc, curr) => Math.max(acc, curr.amount), 0)
