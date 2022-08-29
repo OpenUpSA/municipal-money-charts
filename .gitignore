@@ -103,3 +103,8 @@ typings/
 .tern-port
 
 storybook-static
+
+cypress/videos
+cypress/screenshots
+
+.DS_Store

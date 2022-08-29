@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cypress run",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -30,6 +30,7 @@
     "@storybook/addon-links": "^6.0.28",
     "@storybook/html": "^6.0.28",
     "babel-loader": "^8.1.0",
+    "cypress": "^10.6.0",
     "react-is": "^17.0.1"
   }
 }
