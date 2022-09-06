@@ -144,7 +144,9 @@ export default class OverlayBarChart extends MunicipalChart {
       tempBar["item"] = group.item
       tempBar["data"] = {}
       this._barClasses.forEach(barClass => {
-        tempBar["data"][barClass] = group.data[barClass]
+        if(group.data[barClass]) {
+          tempBar["data"][barClass] = group.data[barClass]
+        }
       })
       tempGroup.push(tempBar)
     })
