@@ -205,7 +205,8 @@ export default class ColumnChart {
           .on('mouseout', self._colMouseOut.bind(self));
 
         col.append('rect')
-            .attr('class', 'rect');
+            .attr('class', 'rect')
+            .on('click', console.log('__click__'));
 
         colGroups.select('.rect')
             .attr('fill', d => d.fillColor)
