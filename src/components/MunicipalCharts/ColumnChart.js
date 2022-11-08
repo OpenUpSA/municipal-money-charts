@@ -203,7 +203,7 @@ export default class ColumnChart {
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
           .on('mouseout', self._colMouseOut.bind(self))
-          .on('click', self._colClick.bind(self);
+          .on('click', self._colClick.bind(self));
 
         col.append('rect')
             .attr('class', 'rect');
@@ -299,7 +299,7 @@ export default class ColumnChart {
 
     _colClick(d) {
         console.log('___click');
-      }
+    }
 
 
     loadMedians(medians, hide = false) {
