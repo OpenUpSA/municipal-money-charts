@@ -108,8 +108,6 @@ export default class ColumnChart {
 
         this.chart.c.append('g').attr('class', 'medians');
 
-        this.chart.c.append('g').on('click', console.log('__click__'));
-
         this.loadData(this.chart.data);
 
     }
@@ -220,7 +218,8 @@ export default class ColumnChart {
             .attr('width', (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5)
             .attr('y', d => self.chart.config.y(Math.max(0, d.value)))
             .attr('height', d => Math.abs(self.chart.config.y(d.value) - self.chart.config.y(0)))
-            .attr('colid', d => d.municipality.code);
+            .attr('colid', d => d.municipality.code)
+            .on('click', console.log('__click__'));
 
 
         /* LABELS */
