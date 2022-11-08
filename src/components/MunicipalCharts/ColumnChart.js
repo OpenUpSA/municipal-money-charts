@@ -202,7 +202,8 @@ export default class ColumnChart {
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
-          .on('mouseout', self._colMouseOut.bind(self));
+          .on('mouseout', self._colMouseOut.bind(self))
+          .on('click', self._colClick.bind(self);
 
         col.append('rect')
             .attr('class', 'rect');
@@ -218,8 +219,7 @@ export default class ColumnChart {
             .attr('width', (self.chart.config.x.bandwidth() - (self.chart.config.x.bandwidth() / 4)) / self.chart.data.length - 5)
             .attr('y', d => self.chart.config.y(Math.max(0, d.value)))
             .attr('height', d => Math.abs(self.chart.config.y(d.value) - self.chart.config.y(0)))
-            .attr('colid', d => d.municipality.code)
-            .on('click', console.log('__click__'));
+            .attr('colid', d => d.municipality.code);
 
 
         /* LABELS */
@@ -296,6 +296,10 @@ export default class ColumnChart {
 
 
     }
+
+    _colClick(d) {
+        console.log('___click');
+      }
 
 
     loadMedians(medians, hide = false) {
