@@ -201,7 +201,6 @@ export default class ColumnChart {
 
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
-          .on('click', console.log('__click__'))
           .on('mouseover', self._colMouseOver.bind(self))
           .on('mouseout', self._colMouseOut.bind(self));
 
