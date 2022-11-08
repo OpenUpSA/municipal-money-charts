@@ -108,6 +108,8 @@ export default class ColumnChart {
 
         this.chart.c.append('g').attr('class', 'medians');
 
+        this.chart.c.append('g').on('click', console.log('__click__'));
+
         this.loadData(this.chart.data);
 
     }
@@ -205,8 +207,7 @@ export default class ColumnChart {
           .on('mouseout', self._colMouseOut.bind(self));
 
         col.append('rect')
-            .attr('class', 'rect')
-            .on('click', console.log('__click__'));
+            .attr('class', 'rect');
 
         colGroups.select('.rect')
             .attr('fill', d => d.fillColor)
