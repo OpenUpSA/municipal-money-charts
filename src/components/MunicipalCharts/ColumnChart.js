@@ -299,6 +299,9 @@ export default class ColumnChart {
 
     _colClick(d) {
         console.log('___click');
+        console.log(d);
+        let event = new CustomEvent("click-bar", { "data": d });
+        document.dispatchEvent(event);
     }
 
 
