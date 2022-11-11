@@ -298,11 +298,12 @@ export default class ColumnChart {
     }
 
     _colClick(d) {
-        let event = new CustomEvent("click-bar", { "detail": d });
+        let self = this;
         let muniId = d.target.__data__.municipality['code']
+        let event = new CustomEvent("click-bar", { "detail": muniId });
         console.log('chart ' + muniId);
         document.dispatchEvent(event);
-        highlightCol(muniId);
+        self.highlightCol(muniId);
     }
 
     loadMedians(medians, hide = false) {
