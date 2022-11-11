@@ -301,7 +301,6 @@ export default class ColumnChart {
         let self = this;
         let muniId = d.target.__data__.municipality['code']
         let event = new CustomEvent("click-bar", { "detail": muniId });
-        console.log('chart ' + muniId);
         document.dispatchEvent(event);
         self.highlightCol(muniId);
     }
@@ -346,6 +345,7 @@ export default class ColumnChart {
 
 
     highlightCol(id) {
+      console.log('chart ' + id);
       this._resetHighlight();
       let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
       cols.forEach(el => el.classList.add('focus'));
