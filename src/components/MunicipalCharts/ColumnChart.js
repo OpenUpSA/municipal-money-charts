@@ -299,7 +299,10 @@ export default class ColumnChart {
 
     _colClick(d) {
         let event = new CustomEvent("click-bar", { "detail": d });
+        let muniId = d.target.__data__.municipality['code']
+        console.log('chart ' + muniId);
         document.dispatchEvent(event);
+        highlightCol(muniId);
     }
 
     loadMedians(medians, hide = false) {
