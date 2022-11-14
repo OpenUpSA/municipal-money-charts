@@ -302,7 +302,16 @@ export default class ColumnChart {
         self.colClicked = true;
         let muniId = d.target.__data__.municipality['code']
         console.log(d);
-        let event = new CustomEvent("click-bar", { "detail": muniId });
+
+        d.path.forEach(function (pathData) {
+            // section#cash-balance.sub-section
+            if (pathData.startsWith("section")) {
+                let section = pathData;
+            }
+            //newData.push({municipality: d.municipality, value: muniData.value, fillColor: muniData.fillColor, period: muniData.period})
+        })
+
+        let event = new CustomEvent("click-bar", { "detail": {'muni':muniId, 'section': section} });
         document.dispatchEvent(event);
         self.highlightCol(muniId);
     }
