@@ -304,14 +304,12 @@ export default class ColumnChart {
         console.log(d);
 
         d.path.forEach(function (pathData) {
-            // section#cash-balance.sub-section
-            if (pathData.startsWith("section")) {
-                let section = pathData;
+            if (pathData.nodeName == 'section') {
+                let sectionId = pathData.id;
             }
-            //newData.push({municipality: d.municipality, value: muniData.value, fillColor: muniData.fillColor, period: muniData.period})
         })
 
-        let event = new CustomEvent("click-bar", { "detail": {'muni':muniId, 'section': section} });
+        let event = new CustomEvent("click-bar", { "detail": {'muni':muniId, 'section': sectionId} });
         document.dispatchEvent(event);
         self.highlightCol(muniId);
     }
