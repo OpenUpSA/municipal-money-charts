@@ -291,10 +291,11 @@ export default class ColumnChart {
     }
 
     _colMouseOut(d) {
-
-      this._resetHighlight();
-
-
+        console.log('colclick' + this.colClicked)
+        if (!this.colClicked){
+            this._resetHighlight();
+        }
+        this.colClicked = false;
     }
 
     _colClick(d) {
@@ -345,8 +346,9 @@ export default class ColumnChart {
 
 
     highlightCol(id) {
-      console.log('chart ' + id);
+      console.log('highlightCol');
       this._resetHighlight();
+      this.colClicked = true;
       let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
       cols.forEach(el => el.classList.add('focus'));
     }
