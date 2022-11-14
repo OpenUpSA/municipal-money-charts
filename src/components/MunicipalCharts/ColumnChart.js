@@ -301,6 +301,7 @@ export default class ColumnChart {
         let self = this;
         self.colClicked = true;
         let muniId = d.target.__data__.municipality['code']
+        console.log(d);
         let event = new CustomEvent("click-bar", { "detail": muniId });
         document.dispatchEvent(event);
         self.highlightCol(muniId);
