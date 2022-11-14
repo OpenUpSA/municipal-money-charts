@@ -302,17 +302,12 @@ export default class ColumnChart {
         self.colClicked = true;
         let muniId = d.target.__data__.municipality['code']
         let sectionId;
-        console.log(d);
-
         d.path.forEach(pathData => {
-            console.log(pathData.localName);
-            if (pathData.localName == 'section' && pathData.id != undefined) {
-                console.log('__pathData.localName');
+            if (pathData.localName == 'section' && pathData.id != '') {
                 sectionId = pathData.id;
             }
         })
-
-        let event = new CustomEvent("click-bar", { "detail": {'muni':muniId, 'section': sectionId} });
+        let event = new CustomEvent("click-col", { "detail": { 'muni': muniId, 'section': sectionId } });
         document.dispatchEvent(event);
         self.highlightCol(muniId);
     }
