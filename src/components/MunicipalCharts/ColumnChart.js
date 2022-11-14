@@ -301,14 +301,14 @@ export default class ColumnChart {
         let self = this;
         self.colClicked = true;
         let muniId = d.target.__data__.municipality['code']
-        
+        let sectionId;
         console.log(d);
 
-        d.path.forEach(function (pathData) {
+        d.path.forEach(pathData => {
             console.log(pathData.localName);
             if (pathData.localName == 'section' && pathData.id != undefined) {
-                console.log('pathData.localName');
-                let sectionId = pathData.id;
+                console.log('__pathData.localName');
+                sectionId = pathData.id;
             }
         })
 
