@@ -291,8 +291,7 @@ export default class ColumnChart {
     }
 
     _colMouseOut(d) {
-        console.log('colclick' + this.colClicked)
-        if (!this.colClicked){
+        if (!this.colClicked) {
             this._resetHighlight();
         }
         this.colClicked = false;
@@ -300,6 +299,7 @@ export default class ColumnChart {
 
     _colClick(d) {
         let self = this;
+        self.colClicked = true;
         let muniId = d.target.__data__.municipality['code']
         let event = new CustomEvent("click-bar", { "detail": muniId });
         document.dispatchEvent(event);
@@ -346,11 +346,9 @@ export default class ColumnChart {
 
 
     highlightCol(id) {
-      console.log('highlightCol');
-      this._resetHighlight();
-      this.colClicked = true;
-      let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
-      cols.forEach(el => el.classList.add('focus'));
+        this._resetHighlight();
+        let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
+        cols.forEach(el => el.classList.add('focus'));
     }
 
     _resetHighlight() {
