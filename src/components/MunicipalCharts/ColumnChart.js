@@ -306,7 +306,7 @@ export default class ColumnChart {
 
         d.path.forEach(function (pathData) {
             console.log(pathData.localName);
-            if (pathData.localName == 'section') {
+            if (pathData.localName == 'section' && pathData.id != undefined) {
                 console.log('pathData.localName');
                 let sectionId = pathData.id;
             }
