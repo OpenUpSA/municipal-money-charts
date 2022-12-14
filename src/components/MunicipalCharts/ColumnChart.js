@@ -300,16 +300,17 @@ export default class ColumnChart {
     _colClick(d) {
         let self = this;
         self.colClicked = true;
-        let muniId = d.target.__data__.municipality['code']
+        let colId = d.target.__data__.municipality['code']
         let sectionId;
+        console.log(d);
         d.path.forEach(pathData => {
             if (pathData.localName == 'section' && pathData.id != '') {
                 sectionId = pathData.id;
             }
         })
-        let event = new CustomEvent("click-col", { "detail": { 'muni': muniId, 'section': sectionId } });
+        let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': sectionId } });
         document.dispatchEvent(event);
-        self.highlightCol(muniId);
+        self.highlightCol(colId);
     }
 
     loadMedians(medians, hide = false) {
