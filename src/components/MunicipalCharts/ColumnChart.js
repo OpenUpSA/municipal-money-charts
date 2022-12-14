@@ -194,7 +194,8 @@ export default class ColumnChart {
         /* COLUMNS */
 
         let chartData = d3Select(this.chart.config.bindto + ' .chartData');
-        console.log(this);
+        console.log(this.chart.config.bindto);
+        console.log(this.chart.data.municipality.code);
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
