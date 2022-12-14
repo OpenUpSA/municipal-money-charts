@@ -299,7 +299,7 @@ export default class ColumnChart {
     _colClick(d) {
         let self = this;
         self.colClicked = true;
-        let colId = this.chart.data[0].municipality.code;
+        let colId = d.target.__data__.municipality['code']
         let chartSection = this.chart.config.bindto.split(" ")[0];
         let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': chartSection } });
         document.dispatchEvent(event);
