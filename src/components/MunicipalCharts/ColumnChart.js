@@ -197,18 +197,12 @@ export default class ColumnChart {
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
-        console.log(his.chart.data.municipality);
-        let colId = this.chart.data.municipality.municipality.code;
-        let chartSection = this.chart.config.bindto.split(" ")[0];
-
-        //console.log(columnId);
-        console.log(chartSection);
 
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
           .on('mouseout', self._colMouseOut.bind(self))
-          .on('click', self._colClick.bind(colId, chartSection));
+          .on('click', self._colClick.bind(self));
 
         col.append('rect')
             .attr('class', 'rect');
@@ -302,16 +296,11 @@ export default class ColumnChart {
         this.colClicked = false;
     }
 
-    _colClick(colId, chartSection) {
+    _colClick(d) {
         let self = this;
         self.colClicked = true;
-        /*let colId = d.target.__data__.municipality['code'] // BUF
-        let chartSection;
-        d.path.forEach(pathData => {
-            if (pathData.localName == 'section' && pathData.id != '') {
-                chartSection = pathData.id; // cash-coverage
-            }
-        })*/
+        let colId = this.chart.data[0].municipality.code;
+        let chartSection = this.chart.config.bindto.split(" ")[0];
         let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': chartSection } });
         document.dispatchEvent(event);
         self.highlightCol(colId);
