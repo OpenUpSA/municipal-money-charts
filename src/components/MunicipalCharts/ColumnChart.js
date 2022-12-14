@@ -194,7 +194,7 @@ export default class ColumnChart {
         /* COLUMNS */
 
         let chartData = d3Select(this.chart.config.bindto + ' .chartData');
-
+        console.log(this);
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
@@ -300,12 +300,12 @@ export default class ColumnChart {
     _colClick(d) {
         let self = this;
         self.colClicked = true;
-        let colId = d.target.__data__.municipality['code']
+        let colId = d.target.__data__.municipality['code'] // BUF
         let sectionId;
         console.log(d);
         d.path.forEach(pathData => {
             if (pathData.localName == 'section' && pathData.id != '') {
-                sectionId = pathData.id;
+                sectionId = pathData.id; // cash-coverage
             }
         })
         let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': sectionId } });
