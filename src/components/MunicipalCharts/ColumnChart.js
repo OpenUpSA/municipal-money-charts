@@ -194,17 +194,21 @@ export default class ColumnChart {
         /* COLUMNS */
 
         let chartData = d3Select(this.chart.config.bindto + ' .chartData');
-        console.log(this.chart.config.bindto);
-        console.log(this.chart.data.municipality.code);
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
+
+        let colId = this.chart.data.municipality.municipality.code;
+        let chartSection = this.chart.config.bindto.split(" ")[0];
+
+        console.log(columnId);
+        console.log(chartSection);
 
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
           .on('mouseout', self._colMouseOut.bind(self))
-          .on('click', self._colClick.bind(self));
+          .on('click', self._colClick.bind(colId, chartSection));
 
         col.append('rect')
             .attr('class', 'rect');
@@ -298,18 +302,17 @@ export default class ColumnChart {
         this.colClicked = false;
     }
 
-    _colClick(d) {
+    _colClick(colId, chartSection) {
         let self = this;
         self.colClicked = true;
-        let colId = d.target.__data__.municipality['code'] // BUF
-        let sectionId;
-        console.log(d);
+        /*let colId = d.target.__data__.municipality['code'] // BUF
+        let chartSection;
         d.path.forEach(pathData => {
             if (pathData.localName == 'section' && pathData.id != '') {
-                sectionId = pathData.id; // cash-coverage
+                chartSection = pathData.id; // cash-coverage
             }
-        })
-        let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': sectionId } });
+        })*/
+        let event = new CustomEvent("click-col", { "detail": { 'column': colId, 'section': chartSection } });
         document.dispatchEvent(event);
         self.highlightCol(colId);
     }
