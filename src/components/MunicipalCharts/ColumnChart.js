@@ -197,11 +197,11 @@ export default class ColumnChart {
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
-
+        console.log(his.chart.data.municipality);
         let colId = this.chart.data.municipality.municipality.code;
         let chartSection = this.chart.config.bindto.split(" ")[0];
 
-        console.log(columnId);
+        //console.log(columnId);
         console.log(chartSection);
 
         let col = colGroups.enter().append('g')
