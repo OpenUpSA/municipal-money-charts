@@ -300,10 +300,8 @@ export default class ColumnChart {
         let self = this;
         self.colClicked = true;
         let colId = d.target.__data__.municipality['code']
-        let chartContainer = this.chart.config.bindto.split(" ")[0];
         let event = new CustomEvent("click-col", {
             bubbles: true,
-            "detail": { 'column': colId, 'container': chartContainer }
         });
         d.srcElement.dispatchEvent(event);
         self.highlightCol(colId);
