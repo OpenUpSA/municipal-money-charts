@@ -194,7 +194,6 @@ export default class ColumnChart {
         /* COLUMNS */
 
         let chartData = d3Select(this.chart.config.bindto + ' .chartData');
-
         let colGroups = chartData.selectAll('.colGroup').data(newData);
 
         colGroups.exit().remove();
@@ -202,7 +201,8 @@ export default class ColumnChart {
         let col = colGroups.enter().append('g')
           .attr('class', 'colGroup')
           .on('mouseover', self._colMouseOver.bind(self))
-          .on('mouseout', self._colMouseOut.bind(self));
+          .on('mouseout', self._colMouseOut.bind(self))
+          .on('click', self._colClick.bind(self));
 
         col.append('rect')
             .attr('class', 'rect');
@@ -290,12 +290,22 @@ export default class ColumnChart {
     }
 
     _colMouseOut(d) {
-
-      this._resetHighlight();
-
-
+        if (!this.colClicked) {
+            this._resetHighlight();
+        }
+        this.colClicked = false;
     }
 
+    _colClick(d) {
+        let self = this;
+        self.colClicked = true;
+        let colId = d.target.__data__.municipality['code']
+        let event = new CustomEvent("click-col", {
+            bubbles: true,
+        });
+        d.srcElement.dispatchEvent(event);
+        self.highlightCol(colId);
+    }
 
     loadMedians(medians, hide = false) {
 
@@ -337,9 +347,9 @@ export default class ColumnChart {
 
 
     highlightCol(id) {
-      this._resetHighlight();
-      let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
-      cols.forEach(el => el.classList.add('focus'));
+        this._resetHighlight();
+        let cols = document.querySelectorAll(this.chart.config.bindto + ' [colid="' + id + '"]');
+        cols.forEach(el => el.classList.add('focus'));
     }
 
     _resetHighlight() {
