@@ -1,40 +1,54 @@
-import GroupedBarChartHoriz  from '../components/MunicipalCharts/GroupedBarChartHoriz';
-import * as data1 from './data/bar-chart-1.json';
-import * as data2 from './data/bar-chart-2.json';
-import * as dataColors from './data/bar-chart-colors.json';
+import GroupedBarChart  from '../components/MunicipalCharts/GroupedBarChartHoriz';
+import * as data1 from './data/grouped-bar-chart-1.json';
+import * as data2 from './data/grouped-bar-chart-2.json';
+import * as data3 from './data/grouped-bar-chart-3.json';
+import * as dataMissingValues from './data/grouped-bar-chart-missing-values.json';
+
 const d3Format = require('d3-format')
 
-const chart = new GroupedBarChartHoriz()
+const chart = new GroupedBarChart()
 const dataOptions = {
-    'Data 1': data1.default,
-    'Data 2': data2.default,
-    'Data Colored': dataColors.default,
+    'Data 1 Colored': data1.default,
+    'Data 2 Colored': data2.default,
+    'Data 3': data3.default,
+    'Data missing values': dataMissingValues.default,
     'Empty Data': []
 }
 
 const formatOptions = {
-    'R currency': d3Format.formatLocale({
-        decimal: '.',
-        thousands: ' ',
-        grouping: [3],
-        currency: ['R', ''],
-    }).format('$,'),
-    'default currency': d3Format.format('($.2f')
+    'short': d3Format.format('.2s'),
+    'full': d3Format.format('')
 }
 
-const story = ({ width, smallBreakpoint, dataName, format, destroy }) => {
-    chart.data(dataOptions[dataName]).format(formatOptions[format]).smallBreakpoint(smallBreakpoint).width(width)
+const seriesFieldOptions = {
+    "budget_phase": "budget_phase",
+    "financial_year": "financial_year"
+}
+
+const highlightOptions = {
+    'Empty': '',
+    'Adjusted budget (budget_phase)': 'Adjusted budget',
+    'Audited outcome (budget_phase)': 'Audited outcome',
+    '2018-19 (financial_year)': '2018-19'
+}
+
+const groupOptions = {
+    'budget_phase': 'budget_phase',
+    'financial_year': 'financial_year'
+}
+
+const story = ({ width, smallBreakpoint, dataName, groupBars, seriesField, highlight, format, destroy }) => {
+    chart.data(dataOptions[dataName])
 
     if (destroy) {
         chart.destroy()
     }
 
     return chart.node
-} 
+}
 
+story.storyName = "Grouped Bar Chart Horiz"
 export default story
-
-story.storyName = "Grouped Bar Chart Horizontal"
 
 story.argTypes = {
     width: {
@@ -53,6 +67,24 @@ story.argTypes = {
             options: Object.keys(dataOptions)
         }
     },
+    seriesField: {
+        control: {
+            type: 'select',
+            options: Object.keys(seriesFieldOptions)
+        }
+    },
+    groupBars: {
+        control: {
+            type: 'select',
+            options: Object.keys(groupOptions)
+        }
+    },
+    highlight: {
+        control: {
+            type: 'select',
+            options: Object.keys(highlightOptions)
+        }
+    },
     format: {
         control: {
             type: 'select',
@@ -68,8 +100,11 @@ story.argTypes = {
 
 story.args = {
     width: '',
-    smallBreakpoint: 300,
+    smallBreakpoint: 500,
     dataName: Object.keys(dataOptions)[0],
+    seriesField: Object.keys(seriesFieldOptions)[0],
+    groupBars: Object.keys(groupOptions)[0],
+    highlight: Object.keys(highlightOptions)[0],
     format: Object.keys(formatOptions)[0],
     destroy: false
 }
