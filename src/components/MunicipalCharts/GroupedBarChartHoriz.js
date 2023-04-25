@@ -5,7 +5,6 @@ import * as d3 from 'd3'
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
-    this._seriesOrder = null
     this._seriesField = 'item'
     this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler())
   }
@@ -24,7 +23,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
     const valueResizeObserver = this._valueResizeObserver
     const format = this._format
     const items = this.groupData(this.data(), this._seriesField)
-    console.log(items); // make a bar for each item
+    //console.log(items); // make a bar for each item
     const maxBarValue = this.maxBarValue()
 
     valueResizeObserver.disconnect()
@@ -53,6 +52,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           .join('div')
           .classed('item-track', true)
           .each(function (d) {
+            console.log(d);
             d3.select(this)
               .selectAll('.item-series')
               .data([d])
@@ -61,7 +61,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
               .selectAll('.item-bar')
               .data(Object.values(d.data))
               .join(enter => enter.append('div').style('width', '0%'))
-              .attr('class', d => `bar-${d.className}`)
+              .attr('class', d => `bar-main`)
               .classed('item-bar', true)
               .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))
               .transition()
@@ -70,17 +70,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
               .style('background-color', d => d.color)
           })
       })
-  }
-
-  seriesOrder(value) {
-    if (!arguments.length) {
-      return this._seriesOrder
-    }
-
-    this._seriesOrder = value
-    this.update()
-
-    return this
   }
 
   seriesField(value) {

@@ -1,5 +1,5 @@
 import GroupedBarChartHoriz from '../components/MunicipalCharts/GroupedBarChartHoriz';
-import * as data1 from './data/grouped-bar-chart--horiz-1.json';
+import * as data1 from './data/grouped-bar-chart-horiz-1.json';
 import * as data2 from './data/bar-chart-2.json';
 import * as dataColors from './data/bar-chart-colors.json';
 const d3Format = require('d3-format')
@@ -22,12 +22,12 @@ const formatOptions = {
     'default currency': d3Format.format('($.2f')
 }
 
-const story = ({ width, smallBreakpoint, dataName, format, destroy }) => {
-    chart.data(dataOptions[dataName]).format(formatOptions[format]).smallBreakpoint(smallBreakpoint).width(width)
+const story = ({ width, dataName, format, destroy }) => {
+    chart.data(dataOptions[dataName]).format(formatOptions[format]).width(width)
 
-    if (destroy) {
+    /*if (destroy) {
         chart.destroy()
-    }
+    }*/
 
     return chart.node
 } 
@@ -42,34 +42,28 @@ story.argTypes = {
             type: 'number'
         }
     },
-    smallBreakpoint: {
-        control: {
-            type: 'number'
-        },
-    },
     dataName: {
         control: {
             type: 'select',
             options: Object.keys(dataOptions)
         }
     },
-    format: {
+    /*format: {
         control: {
             type: 'select',
             options: Object.keys(formatOptions)
         }
-    },
-    destroy: {
+    },*/
+    /*destroy: {
         control: {
             type: 'boolean'
         }
-    }
+    }*/
 }
 
 story.args = {
     width: '',
-    smallBreakpoint: 300,
     dataName: Object.keys(dataOptions)[0],
     format: Object.keys(formatOptions)[0],
-    destroy: false
+    //destroy: false
 }

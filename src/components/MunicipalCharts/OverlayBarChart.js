@@ -59,6 +59,7 @@ export default class OverlayBarChart extends MunicipalChart {
             .join('div')
             .classed('item-track', true)
             .each(function (d) {
+              console.log(d);
               d3.select(this)
               .selectAll('.item-series')
               .data([d])
