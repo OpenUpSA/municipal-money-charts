@@ -1,0 +1,82 @@
+[
+  {
+    "amount": 184331307.0,
+    "item": "Property rates",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 413280935.0,
+    "item": "Service Charges",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 609214.0,
+    "item": "Rental income",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 20234700.0,
+    "item": "Interest and investments",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 21333783.0,
+    "item": "Fines",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 15792788.0,
+    "item": "Licenses and Permits",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 0.0,
+    "item": "Agency services",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 7625135.0,
+    "item": "Other",
+    "financial_year": "2015-16"
+  },
+  {
+    "amount": 184331307.0,
+    "item": "Property rates",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 116240535.0,
+    "item": "Service Charges",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 6077214.0,
+    "item": "Rental income",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 2234700.0,
+    "item": "Interest and investments",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 2132783.0,
+    "item": "Fines",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 1792788.0,
+    "item": "Licenses and Permits",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 6235.0,
+    "item": "Agency services",
+    "financial_year": "2016-17"
+  },
+  {
+    "amount": 725135.0,
+    "item": "Other",
+    "financial_year": "2016-17"
+  }
+]

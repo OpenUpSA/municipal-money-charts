@@ -1,226 +1,129 @@
-.grouped-bar-chart {
-  overflow: visible;
-  color: #4C4C4C;
-  font-size: 10px;
-  padding-top: 0.5em; // to compensate y-axis top overflow
-  display: grid;
-  grid-template-rows: 214px 1fr;
-  grid-template-columns: min-content auto;
-  grid-template-areas: 
-      "y-axis plot"
-      ". x-axis";
+.grouped-bar-chart-horiz {
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    color: #4C4C4C;
 
-  .x-axis {
-      grid-area: x-axis;
-      display: flex;
-      padding-top: 8px;
+    &.small {
+        .item {
+            flex-direction: column;
+            align-items: stretch;
+            height: auto;
 
-      > .axis-group {
-          flex-grow: 1;
-          width: 0;
-          text-align: center;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          padding: 0 2px;
-
-          &:hover {
-              min-width: min-content;
-          }
-      }
-  }
-
-  .y-axis {
-      grid-area: y-axis;
-      display: flex;
-      overflow: visible;
-      flex-direction: column-reverse;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-right: 11px;
-      color: rgba(0, 0, 0, 0.6);
-
-      .tick {
-          height: 0;
-          line-height: 0;
-      }
-  }
-
-  .plot {
-      grid-area: plot;
-      display: flex;
-      justify-content: space-around;
-      align-items: stretch;
-      position: relative;
-
-      &.highlight {
-        .bar-track {
-          opacity: 0.05;
+            .item-label {
+                width: auto;
+                padding-right: 0;
+                margin-bottom: 4px;
+            }
         }
-      }
+    }
 
-      .plot-lines {
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: stretch;
+    .item {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
 
-          .plot-line {
-              height: 1px;
-              background-color: rgba(0, 0, 0, 0.05);
+        &:not(:last-child) {
+            margin-bottom: 8px;
+        }
 
-              &:last-child {
-                  opacity: 0.5;
-                  background-color: #C4C4C4;
-              }
-          }
-      }
+        .item-label {
+            width: 25%;
+            overflow: visible;
+            min-width: 0;
+            padding-right: 20px;
+            box-sizing: border-box;
 
-      .plot-group {
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: stretch;
-          flex-grow: 1;
-          width: 0;
-          margin: 0 8px;
+            .item-label-body {
+                position: relative;
+                max-width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
 
-          
-          .bar-track {
-              position: relative;
-              max-width: 16px;
-              box-sizing: border-box;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-end;
-              overflow: visible;
-              transition: opacity 0.3s ease;
+                &:hover {
+                    overflow: visible;
+                    max-width: none;
+                    min-width: max-content;
+                    z-index: 100;
+                    text-overflow: clip;
 
-              &.highlight {
-                opacity: 1;
-              }
+                    &:before {
+                        content: "";
+                        background-color: rgba(255, 255, 255, 0.6);
+                        position: absolute;
+                        display: block;
+                        left: -4px;
+                        right: -4px;
+                        top: 0;
+                        height: 100%;
+                        z-index: -1;
+                        border-radius: 2px;
+                    }
+                }
+            }
+        }
 
-              .bar {
-                  width: 75%;
-                  margin: 0 auto;
-                  position: relative;
-                  overflow: visible;
-                  flex-basis: 0;
+        .item-track {
+            display: flex;
+            justify-content: flex-end;
+            flex-grow: 1;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 2px;
 
-                  .bar-body {
-                      position: absolute;
-                      left: 0;
-                      top: 0;
-                      right: 0;
-                      bottom: 0;
-                      border-radius: 2px 2px 0 0;
-                      background-color: grey;
-                      overflow: hidden;
-                      transition: background-color 0.3s;
-                  }
+            .item-value {
+                padding: 0 6px;
+                display: flex;
+                justify-content: flex-end;
+                
+                .item-value-body {
+                    flex-grow: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
 
-                  .bar-value {
-                      display: none;
-                  }
+            .item-series {
+                position: relative;
+                height: 20px;
+                align-items: center;
+                flex-grow: 1;
 
-                  &:hover {
-                      .bar-body {
-                          &:after {
-                              content: "";
-                              display: block;
-                              position: absolute;
-                              left: 0;
-                              top: 0;
-                              right: 0;
-                              bottom: 0;
-                              background-color: black;
-                              opacity: 0.2;
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  }
+                .item-bar {
+                    position: absolute;
+                    left: 0;
 
-  &.small {
-      display: block;
+                    &.bar-main {
+                        top: 0;
+                        height: 100%;
+                        border-radius: 2px;
+                        background-color: #54298B;
+                        z-index: 0;
+                    }
+                }
+            }
 
-      .y-axis, .x-axis, .plot-lines {
-          display: none;
-      }
+            &:hover {
+                .item-series {
+                    .item-bar {
+                        &:before, &:after {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
-      .plot {
-          flex-direction: column;
-
-          .plot-group {
-              width: 100%;
-              height: auto;
-              flex-grow: 0;
-              flex-direction: column;
-              margin: 0;
-
-              &:not(:last-child) {
-                  margin-bottom: 10px;
-              }
-
-              &:before {
-                  content: attr(data-group);
-                  display: block;
-                  margin-bottom: 6px;
-              }
-
-              .bar-track {
-                  max-width: none;
-                  flex-direction: row;
-                  background-color: rgba(0, 0, 0, 0.04);
-                  justify-content: flex-start;
-                  flex-grow: 0;
-                  height: 16px;
-
-                  &:not(:last-child) {
-                      margin-bottom: 4px;
-                  }
-                  
-                  .chart-tooltip {
-                      &:before, &:after {
-                          display: none;
-                      }
-                  }
-
-                  .bar {
-                      margin: 0;
-
-                      .bar-body {
-                          border-radius: 2px;
-                      }
-
-                      .bar-value {
-                          position: absolute;
-                          display: block;
-                          left: 100%;
-                          top: 50%;
-                          transform: translateY(-50%);
-                          color: #666666;
-                          padding: 0 8px;
-                          box-sizing: border-box;
-                      }
-
-                      &:hover {
-                          .bar-body {
-                              &:after {
-                                  display: none;
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  }
+.grouped-bar-chart-horiz {
+    .item {
+        .item-track {
+            .item-series {
+                height: 16px;
+            }
+        }
+    }
 }

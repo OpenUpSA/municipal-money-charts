@@ -2,23 +2,108 @@ import MunicipalChart from './MunicipalChart.js'
 import ResizeObserver from 'resize-observer-polyfill'
 import * as d3 from 'd3'
 
-export default class GroupedBarChart extends MunicipalChart {
+export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
+    this._seriesOrder = null
+    this._seriesField = 'item'
+    this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler())
+  }
 
-    this._seriesField = 'budget_phase'
-    this._groupBars = 'financial_year'
-    this._ticksNum = 7
-    this._highlight = null
+  valueResizeHandler() {
+    return entries => {
+      let maxWidth = entries.reduce((maxWidth, entry) => {
+        return Math.max(maxWidth, entry.contentRect.width)
+      }, 0)
 
-    var margin = {top: 20, right: 30, bottom: 40, left: 90},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+      d3.selectAll('.item-value').style('min-width', `${maxWidth}px`)
+    }
+  }
 
-    d3.select(this.node).call(node => {
-      this._xAxis = node.append('div').classed('x-axis', true)
-      this._yAxis = node.append('div').classed('y-axis', true)
-      this._plot = node.append('div').classed('plot', true)
-    })
+  updateProvider() {
+    const valueResizeObserver = this._valueResizeObserver
+    const format = this._format
+    const items = this.groupData(this.data(), this._seriesField)
+    console.log(items); // make a bar for each item
+    const maxBarValue = this.maxBarValue()
+
+    valueResizeObserver.disconnect()
+
+    d3.select(this.node).selectAll('.item')
+      .data(items)
+      .join('div')
+      .classed('item', true)
+      .each(function (d) {
+        d3.select(this)
+          .selectAll('.item-label')
+          .data([d])
+          .join('div')
+          .classed('item-label', true)
+          .each(function (d) {
+            d3.select(this).selectAll('.item-label-body')
+              .data([d])
+              .join('div')
+              .classed('item-label-body', true)
+              .text(d => d.item)
+          })
+
+        d3.select(this)
+          .selectAll('.item-track')
+          .data([d])
+          .join('div')
+          .classed('item-track', true)
+          .each(function (d) {
+            d3.select(this)
+              .selectAll('.item-series')
+              .data([d])
+              .join('div')
+              .classed('item-series', true)
+              .selectAll('.item-bar')
+              .data(Object.values(d.data))
+              .join(enter => enter.append('div').style('width', '0%'))
+              .attr('class', d => `bar-${d.className}`)
+              .classed('item-bar', true)
+              .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))
+              .transition()
+              .duration(500)
+              .style('width', d => `${d.amount / maxBarValue * 100}%`)
+              .style('background-color', d => d.color)
+          })
+      })
+  }
+
+  seriesOrder(value) {
+    if (!arguments.length) {
+      return this._seriesOrder
+    }
+
+    this._seriesOrder = value
+    this.update()
+
+    return this
+  }
+
+  seriesField(value) {
+    if (!arguments.length) {
+      return this._seriesField
+    }
+
+    this._seriesField = value
+    this.update()
+
+    return this
+  }
+
+  groupData(value, key) {
+    return Array.from(d3.group(value, d => d[key]), ([item, data]) => ({ item, data }))
+  }
+
+  maxBarValue() {
+    return this.data().reduce((acc, curr) => Math.max(acc, curr.amount), 0)
+  }
+
+  destroy() {
+    this._valueResizeObserver.disconnect()
+    this.updateProvider = null
   }
 }
