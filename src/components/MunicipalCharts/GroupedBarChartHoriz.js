@@ -23,7 +23,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
     const valueResizeObserver = this._valueResizeObserver
     const format = this._format
     const items = this.groupData(this.data(), this._seriesField)
-    //console.log(items); // make a bar for each item
+    //console.log(items);
     const maxBarValue = this.maxBarValue()
 
     valueResizeObserver.disconnect()
@@ -50,7 +50,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           .selectAll('.item-track')
           .data([d])
           .join('div')
-          .classed('item-track', true)
+          .classed('item-track', true) // for each item, draw a bar for each financial year
           .each(function (d) {
             console.log(d);
             d3.select(this)
@@ -89,10 +89,5 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
 
   maxBarValue() {
     return this.data().reduce((acc, curr) => Math.max(acc, curr.amount), 0)
-  }
-
-  destroy() {
-    this._valueResizeObserver.disconnect()
-    this.updateProvider = null
   }
 }

@@ -25,12 +25,8 @@ const formatOptions = {
 const story = ({ width, dataName, format, destroy }) => {
     chart.data(dataOptions[dataName]).format(formatOptions[format]).width(width)
 
-    /*if (destroy) {
-        chart.destroy()
-    }*/
-
     return chart.node
-} 
+}
 
 export default story
 
@@ -47,23 +43,11 @@ story.argTypes = {
             type: 'select',
             options: Object.keys(dataOptions)
         }
-    },
-    /*format: {
-        control: {
-            type: 'select',
-            options: Object.keys(formatOptions)
-        }
-    },*/
-    /*destroy: {
-        control: {
-            type: 'boolean'
-        }
-    }*/
+    }
 }
 
 story.args = {
     width: '',
     dataName: Object.keys(dataOptions)[0],
-    format: Object.keys(formatOptions)[0],
-    //destroy: false
+    format: Object.keys(formatOptions)[0]
 }
