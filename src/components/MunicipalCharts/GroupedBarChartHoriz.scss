@@ -90,11 +90,10 @@
                 height: 20px;
                 align-items: center;
                 flex-grow: 1;
-
                 .item-bar {
-                    position: absolute;
+                    position: relative;
                     left: 0;
-
+                    margin-bottom: 20px;
                     &.bar-main {
                         top: 0;
                         height: 100%;
