@@ -61,6 +61,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
               .selectAll('.item-bar')
               .data(Object.values(d.data))
               .join(enter => enter.append('div').style('width', '0%'))
+              .text(d => d.financial_year)
               .attr('class', d => `bar-main`)
               .classed('item-bar', true)
               .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))
