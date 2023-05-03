@@ -50,9 +50,8 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           .selectAll('.item-track')
           .data([d])
           .join('div')
-          .classed('item-track', true) // for each item, draw a bar for each financial year
+          .classed('item-track', true)
           .each(function (d) {
-            console.log(d);
             d3.select(this)
               .selectAll('.item-series')
               .data([d])
@@ -62,6 +61,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
               .data(Object.values(d.data))
               .join(enter => enter.append('div').style('width', '0%'))
               .text(d => d.financial_year)
+              .classed('item-year', true)
               .attr('class', d => `bar-main`)
               .classed('item-bar', true)
               .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))

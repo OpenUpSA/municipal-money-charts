@@ -65,6 +65,13 @@
             }
         }
 
+        .item-year {
+            width: 25%;
+            overflow: visible;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
         .item-track {
             display: flex;
             justify-content: flex-end;
