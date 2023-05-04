@@ -23,7 +23,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
     const valueResizeObserver = this._valueResizeObserver
     const format = this._format
     const items = this.groupData(this.data(), this._seriesField)
-    //console.log(items);
     const maxBarValue = this.maxBarValue()
 
     valueResizeObserver.disconnect()
@@ -60,11 +59,11 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
               .selectAll('.item-bar')
               .data(Object.values(d.data))
               .join(enter => enter.append('div').style('width', '0%'))
-              .text(d => d.financial_year)
-              .classed('item-year', true)
               .attr('class', d => `bar-main`)
               .classed('item-bar', true)
               .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))
+              .text(d => d.financial_year)
+              .classed('item-year', true)
               .transition()
               .duration(500)
               .style('width', d => `${d.amount / maxBarValue * 100}%`)

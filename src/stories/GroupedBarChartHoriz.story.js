@@ -1,14 +1,10 @@
 import GroupedBarChartHoriz from '../components/MunicipalCharts/GroupedBarChartHoriz';
 import * as data1 from './data/grouped-bar-chart-horiz-1.json';
-import * as data2 from './data/bar-chart-2.json';
-import * as dataColors from './data/bar-chart-colors.json';
 const d3Format = require('d3-format')
 
 const chart = new GroupedBarChartHoriz()
 const dataOptions = {
     'Data 1': data1.default,
-    'Data 2': data2.default,
-    'Data Colored': dataColors.default,
     'Empty Data': []
 }
 
