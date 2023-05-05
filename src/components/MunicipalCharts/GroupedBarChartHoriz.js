@@ -1,15 +1,15 @@
 import MunicipalChart from './MunicipalChart.js'
-import ResizeObserver from 'resize-observer-polyfill'
+//import ResizeObserver from 'resize-observer-polyfill'
 import * as d3 from 'd3'
 
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
-    this._seriesField = 'item'
-    this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler())
+    //this._seriesField = 'item'
+    //this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler())
   }
 
-  valueResizeHandler() {
+  /*valueResizeHandler() {
     return entries => {
       let maxWidth = entries.reduce((maxWidth, entry) => {
         return Math.max(maxWidth, entry.contentRect.width)
@@ -17,77 +17,130 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
 
       d3.selectAll('.item-value').style('min-width', `${maxWidth}px`)
     }
-  }
+  }*/
 
   updateProvider() {
-    const valueResizeObserver = this._valueResizeObserver
-    const format = this._format
-    const items = this.groupData(this.data(), this._seriesField)
-    const maxBarValue = this.maxBarValue()
+    const margin = { top: 0, right: 0, bottom: 0, left: 200 };
+    const width = d3.select(".grouped-bar-chart-horiz").node().clientWidth - margin.left - margin.right;
+    const height = 600 - margin.top - margin.bottom;
+    const formatter = d3.formatPrefix(".2s", 1e3);
+    //const items = this.groupData(this.data(), this._seriesField)
 
-    valueResizeObserver.disconnect()
+    // const currencyFormatter = d3.format(`${formatter.scale}~`);
 
-    d3.select(this.node).selectAll('.item')
-      .data(items)
-      .join('div')
-      .classed('item', true)
-      .each(function (d) {
-        d3.select(this)
-          .selectAll('.item-label')
-          .data([d])
-          .join('div')
-          .classed('item-label', true)
-          .each(function (d) {
-            d3.select(this).selectAll('.item-label-body')
-              .data([d])
-              .join('div')
-              .classed('item-label-body', true)
-              .text(d => d.item)
-          })
+    const svg = d3.select(".grouped-bar-chart-horiz")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`)
+      .style("font-family", "sans-serif")
+      .style("font-weight", "bold");
 
-        d3.select(this)
-          .selectAll('.item-track')
-          .data([d])
-          .join('div')
-          .classed('item-track', true)
-          .each(function (d) {
-            d3.select(this)
-              .selectAll('.item-series')
-              .data([d])
-              .join('div')
-              .classed('item-series', true)
-              .selectAll('.item-bar')
-              .data(Object.values(d.data))
-              .join(enter => enter.append('div').style('width', '0%'))
-              .attr('class', d => `bar-main`)
-              .classed('item-bar', true)
-              .attr('data-tooltip', d => d.amount === null ? "Not available" : format(d.amount))
-              .text(d => d.financial_year)
-              .classed('item-year', true)
-              .transition()
-              .duration(500)
-              .style('width', d => `${d.amount / maxBarValue * 100}%`)
-              .style('background-color', d => d.color)
-          })
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(this.data(), d => d3.max(d.values, v => v.value))])
+      .range([0, width]);
+
+    const y = d3.scaleBand()
+      .domain(this.data().map(d => d.category))
+      .range([0, height])
+      .padding(0.1);
+
+    // Y axis
+    svg.append("g")
+      .attr("class", "y-axis")
+      .attr("transform", "translate(-180, 0)")
+      .call(d3.axisLeft(y));
+
+    d3.select(".y-axis path").remove();
+    d3.selectAll(".y-axis line").remove();
+    d3.selectAll(".y-axis text")
+      .attr("transform", `translate(0, -${y.bandwidth() / 4 + 30})`)
+      .style("text-anchor", "start")
+      .style("font-size", "14px");
+
+
+    // Add a group for each category.
+    const groups = svg.selectAll("g.category")
+      .data(this.data())
+      .enter()
+      .append("g")
+      .attr("class", "category")
+      .style("font-size", "12px")
+      .attr("transform", d => `translate(0, ${y(d.category)})`);
+
+    // Add each category's background bars to the group
+    groups.selectAll("rect.background")
+      .data(d => d.values)
+      .enter()
+      .append("rect")
+      .attr("class", "background")
+      .attr("data-year", d => d.year)
+      .attr("x", d => x(0))
+      .attr("y", (d, i) => i * (y.bandwidth() / 4) + 5)
+      .attr("width", d => x.range()[1])
+      .attr("height", y.bandwidth() / 4 - 10)
+      .attr("fill", "#f5f5f5")
+      .attr("rx", 5)
+      .attr("ry", 5)
+      .style("cursor", "pointer");
+
+    // Add each category's bars to the group
+    groups.selectAll("rect.bar")
+      .data(d => d.values)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("data-year", d => d.year)
+      .attr("x", d => x(0))
+      .attr("y", (d, i) => i * (y.bandwidth() / 4) + 5)
+      .attr("width", d => x(d.value))
+      .attr("height", y.bandwidth() / 4 - 10)
+      .attr("fill", "#e1dce8")
+      .attr("rx", 5)
+      .attr("ry", 5)
+      .style("cursor", "pointer");
+
+
+    // Add each category's years to the group
+    groups.selectAll(".year")
+      .data(d => d.values)
+      .enter()
+      .append("text")
+      .attr("class", "year")
+      .attr("data-year", d => d.year)
+      .attr("x", d => x(0) - 50)
+      .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
+      .attr("fill", "#999999")
+      .text(d => d.year)
+      .style("cursor", "pointer");
+
+
+    // Add each category's bar's value to the group
+    groups.selectAll(".value")
+      .data(d => d.values)
+      .enter()
+      .append("text")
+      .attr("class", "value")
+      .attr("data-year", d => d.year)
+      .attr("x", d => x.range()[1] - 10)
+      .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
+      .attr("text-anchor", "end")
+      .attr("fill", "#999999")
+      .text(d => 'R' + formatter(d.value))
+      .style("cursor", "pointer");
+
+
+    groups.selectAll("rect.bar, rect.background, text.label, text.value")
+      .on("mouseover", (e, d) => {
+        d3.selectAll('rect.bar[data-year="' + d.year + '"]').attr("fill", "#54298b");
+        d3.selectAll('text.year[data-year="' + d.year + '"]').attr("fill", "#333333");
+        d3.selectAll('text.value[data-year="' + d.year + '"]').attr("fill", "#333333");
       })
-  }
-
-  seriesField(value) {
-    if (!arguments.length) {
-      return this._seriesField
-    }
-
-    this._seriesField = value
-    this.update()
-
-    return this
-  }
-
-  groupData(value, key) {
-    return Array.from(d3.group(value, d => d[key]), ([item, data]) => ({ item, data }))
-  }
-
-  maxBarValue() {
-    return this.data().reduce((acc, curr) => Math.max(acc, curr.amount), 0)
+      .on("mouseout", (e, d) => {
+        d3.selectAll('rect.bar[data-year="' + d.year + '"]').attr("fill", "#e1dce8");
+        d3.selectAll('text.year[data-year="' + d.year + '"]').attr("fill", "#999999");
+        d3.selectAll('text.value[data-year="' + d.year + '"]').attr("fill", "#999999");
+      });
   }
 }

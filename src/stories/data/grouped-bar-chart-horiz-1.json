@@ -1,82 +1,44 @@
 [
   {
-    "amount": 84331307.0,
-    "item": "Property rates",
-    "financial_year": "2015-16"
+    "category": "Property Rates", 
+    "values": [
+      {
+      "year": "2019",
+      "value": 184331307
+      },
+      {
+      "year": "2018",
+      "value": 167951901
+      },
+      {
+      "year": "2017",
+      "value": 154311339
+      },
+      {
+      "year": "2016",
+      "value": 152512312
+      }
+    ]
   },
   {
-    "amount": 13280935.0,
-    "item": "Service Charges",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 609214.0,
-    "item": "Rental income",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 20234700.0,
-    "item": "Interest and investments",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 21333783.0,
-    "item": "Fines",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 15792788.0,
-    "item": "Licenses and Permits",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 503600.0,
-    "item": "Agency services",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 7625135.0,
-    "item": "Other",
-    "financial_year": "2015-16"
-  },
-  {
-    "amount": 70031307.0,
-    "item": "Property rates",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 86240535.0,
-    "item": "Service Charges",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 6077214.0,
-    "item": "Rental income",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 2234700.0,
-    "item": "Interest and investments",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 2132783.0,
-    "item": "Fines",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 1792788.0,
-    "item": "Licenses and Permits",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 146235.0,
-    "item": "Agency services",
-    "financial_year": "2016-17"
-  },
-  {
-    "amount": 725135.0,
-    "item": "Other",
-    "financial_year": "2016-17"
+    "category": "Service Charges", 
+    "values": [
+      {
+      "year": "2019",
+      "value": 124331307
+      },
+      {
+      "year": "2018",
+      "value": 141513307
+      },
+      {
+      "year": "2017",
+      "value": 184331307
+      },
+      {
+      "year": "2016",
+      "value": 184331307
+      }
+    ]
   }
 ]
