@@ -1,33 +1,28 @@
 import MunicipalChart from './MunicipalChart.js'
-//import ResizeObserver from 'resize-observer-polyfill'
+import ResizeObserver from 'resize-observer-polyfill'
 import * as d3 from 'd3'
 
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
-    //this._seriesField = 'item'
-    //this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler())
+    this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler());
   }
 
-  /*valueResizeHandler() {
+  valueResizeHandler() {
     return entries => {
       let maxWidth = entries.reduce((maxWidth, entry) => {
         return Math.max(maxWidth, entry.contentRect.width)
       }, 0)
-
-      d3.selectAll('.item-value').style('min-width', `${maxWidth}px`)
+      d3.selectAll('.grouped-bar-chart-horiz').style('min-width', `${maxWidth}px`)
     }
-  }*/
+  }
 
   updateProvider() {
+    const valueResizeObserver = this._valueResizeObserver
     const margin = { top: 0, right: 0, bottom: 0, left: 200 };
     const width = d3.select(".grouped-bar-chart-horiz").node().clientWidth - margin.left - margin.right;
     const height = 200 - margin.top - margin.bottom;
     const formatter = d3.formatPrefix(".2s", 1e3);
-    //const items = this.groupData(this.data(), this._seriesField)
-
-    // const currencyFormatter = d3.format(`${formatter.scale}~`);
-
     const svg = d3.select(".grouped-bar-chart-horiz")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
