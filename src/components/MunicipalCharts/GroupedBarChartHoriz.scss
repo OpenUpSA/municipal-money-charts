@@ -1,7 +1,23 @@
 .grouped-bar-chart-horiz {
-    font-family: Rubik, sans-serif;
+    font-family: sans-serif;
     font-style: normal;
     font-weight: normal;
     line-height: normal;
     color: #4C4C4C;
+}
+
+.y-axis {
+    text-anchor: start;
+    font-size: 10px;
+}
+
+.category {
+    font-size: 10px;
+}
+
+.background,
+.bar,
+.year,
+.value {
+    cursor: pointer;
 }

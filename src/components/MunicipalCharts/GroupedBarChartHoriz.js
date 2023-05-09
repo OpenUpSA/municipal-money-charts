@@ -1,24 +1,12 @@
 import MunicipalChart from './MunicipalChart.js'
-import ResizeObserver from 'resize-observer-polyfill'
 import * as d3 from 'd3'
 
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
-    this._valueResizeObserver = new ResizeObserver(this.valueResizeHandler());
-  }
-
-  valueResizeHandler() {
-    return entries => {
-      let maxWidth = entries.reduce((maxWidth, entry) => {
-        return Math.max(maxWidth, entry.contentRect.width)
-      }, 0)
-      d3.selectAll('.grouped-bar-chart-horiz').style('min-width', `${maxWidth}px`)
-    }
   }
 
   updateProvider() {
-    const valueResizeObserver = this._valueResizeObserver
     const margin = { top: 0, right: 0, bottom: 0, left: 200 };
     const width = d3.select(".grouped-bar-chart-horiz").node().clientWidth - margin.left - margin.right;
     const height = 200 - margin.top - margin.bottom;
@@ -29,8 +17,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`)
-      .style("font-family", "sans-serif")
-      .style("font-weight", "bold");
 
     const x = d3.scaleLinear()
       .domain([0, d3.max(this.data(), d => d3.max(d.values, v => v.value))])
@@ -50,9 +36,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
     d3.select(".y-axis path").remove();
     d3.selectAll(".y-axis line").remove();
     d3.selectAll(".y-axis text")
-      .attr("transform", `translate(0, -${y.bandwidth() / 4 + 9})`)
-      .style("text-anchor", "start")
-      .style("font-size", "10px");
+      .attr("transform", `translate(0, -${y.bandwidth() / 4 + 9})`);
 
 
     // Add a group for each category.
@@ -61,7 +45,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .enter()
       .append("g")
       .attr("class", "category")
-      .style("font-size", "10px")
       .attr("transform", d => `translate(0, ${y(d.category)})`);
 
     // Add each category's background bars to the group
@@ -77,8 +60,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("height", 16)
       .attr("fill", "#f5f5f5")
       .attr("rx", 5)
-      .attr("ry", 5)
-      .style("cursor", "pointer");
+      .attr("ry", 5);
 
     // Add each category's bars to the group
     groups.selectAll("rect.bar")
@@ -93,8 +75,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("height", 16)
       .attr("fill", "#e1dce8")
       .attr("rx", 5)
-      .attr("ry", 5)
-      .style("cursor", "pointer");
+      .attr("ry", 5);
 
 
     // Add each category's years to the group
@@ -107,8 +88,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("x", d => x(0) - 50)
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
       .attr("fill", "#999999")
-      .text(d => d.year)
-      .style("cursor", "pointer");
+      .text(d => d.year);
 
 
     // Add each category's bar's value to the group
@@ -122,8 +102,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
       .attr("text-anchor", "end")
       .attr("fill", "#999999")
-      .text(d => 'R' + formatter(d.value))
-      .style("cursor", "pointer");
+      .text(d => 'R' + formatter(d.value));
 
 
     groups.selectAll("rect.bar, rect.background, text.label, text.value")
