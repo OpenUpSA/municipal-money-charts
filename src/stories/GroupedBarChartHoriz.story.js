@@ -1,10 +1,12 @@
 import GroupedBarChartHoriz from '../components/MunicipalCharts/GroupedBarChartHoriz';
 import * as data1 from './data/grouped-bar-chart-horiz-1.json';
+import * as dataMissing from './data/grouped-bar-chart-horiz-missing-values.json';
 const d3Format = require('d3-format')
 
 const chart = new GroupedBarChartHoriz()
 const dataOptions = {
     'Data 1': data1.default,
+    'Data missing': dataMissing.default,
     'Empty Data': []
 }
 
