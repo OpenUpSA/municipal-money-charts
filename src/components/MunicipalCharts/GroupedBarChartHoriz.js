@@ -9,7 +9,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
   updateProvider() {
     const margin = { top: 0, right: 0, bottom: 0, left: 200 };
     const width = d3.select(".grouped-bar-chart-horiz").node().clientWidth - margin.left - margin.right;
-    const height = 200 - margin.top - margin.bottom;
+    const height = 600 - margin.top - margin.bottom;
     const formatter = d3.formatPrefix(".2s", 1e3);
     const svg = d3.select(".grouped-bar-chart-horiz")
       .append("svg")
@@ -57,8 +57,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("x", d => x(0))
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + 5)
       .attr("width", d => x.range()[1])
-      .attr("height", 16)
-      .attr("fill", "#f5f5f5")
+      .attr("height", y.bandwidth()/4-10)
       .attr("rx", 5)
       .attr("ry", 5);
 
@@ -72,7 +71,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("x", d => x(0))
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + 5)
       .attr("width", d => x(d.value) - 110)
-      .attr("height", 16)
+      .attr("height", y.bandwidth()/4-10)
       .attr("fill", "#e1dce8")
       .attr("rx", 5)
       .attr("ry", 5);
@@ -87,7 +86,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("data-year", d => d.year)
       .attr("x", d => x(0) - 50)
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
-      .attr("fill", "#999999")
       .text(d => d.year);
 
 
@@ -100,10 +98,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       .attr("data-year", d => d.year)
       .attr("x", d => x.range()[1] - 10)
       .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2 + 5)
-      .attr("text-anchor", "end")
-      .attr("fill", "#999999")
       .text(d => 'R' + formatter(d.value));
-
 
     groups.selectAll("rect.bar, rect.background, text.label, text.value")
       .on("mouseover", (e, d) => {
