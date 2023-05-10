@@ -1,43 +1,64 @@
 [
   {
-    "category": "Property Rates", 
+    "category": "Community & Social",
     "values": [
       {
-      "year": "2019",
-      "value": 184331307
+        "year": "2019",
+        "value": 184331307
       },
       {
-      "year": "2018",
-      "value": 167951901
+        "year": "2018",
+        "value": 167951901
       },
       {
-      "year": "2017",
-      "value": 154311339
+        "year": "2017",
+        "value": 154311339
       },
       {
-      "year": "2016",
-      "value": 152512312
+        "year": "2016",
+        "value": 152512312
       }
     ]
   },
   {
-    "category": "Service Charges", 
+    "category": "Electricity",
     "values": [
       {
-      "year": "2019",
-      "value": 124331307
+        "year": "2019",
+        "value": 124331307
       },
       {
-      "year": "2018",
-      "value": 141513307
+        "year": "2018",
+        "value": 141513307
       },
       {
-      "year": "2017",
-      "value": 184331307
+        "year": "2017",
+        "value": 184331307
       },
       {
-      "year": "2016",
-      "value": 184331307
+        "year": "2016",
+        "value": 184331307
+      }
+    ]
+  },
+  {
+    "category": "Service Charges",
+    "values": [
+      {
+        "year": "2019",
+        "value": 24331307
+      },
+      {
+        "year": "2018",
+        "value": 101513307
+      },
+      {
+        "year": "2017",
+        "value": 43313070
+      },
+      {
+        "year": "2016",
+        "value": 174331307
       }
     ]
   }
