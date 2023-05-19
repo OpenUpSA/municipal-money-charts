@@ -1,5 +1,5 @@
 .grouped-bar-chart-horiz {
-    font-family: sans-serif;
+    font-family: Rubik, sans-serif;
     font-style: normal;
     font-weight: normal;
     line-height: normal;
@@ -29,11 +29,11 @@
 }
 
 .value {
-    fill: #999999;
+    fill: rgb(76, 76, 76);
     text-anchor: end;
     cursor: pointer;
 }
 
 .text {
-    fill: #999999;
+    fill: rgb(76, 76, 76);
 }
