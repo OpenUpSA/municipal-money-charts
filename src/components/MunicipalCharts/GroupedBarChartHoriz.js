@@ -1,20 +1,14 @@
 import MunicipalChart from './MunicipalChart.js'
-
 import * as d3 from 'd3'
 
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
-    
   }
 
   updateProvider() {
-
-    
-
     setTimeout(() => {
-
-      d3.select(".grouped-bar-chart-horiz svg").remove();  
+      d3.select(".grouped-bar-chart-horiz svg").remove();
 
       const containerWidth = d3.select(".grouped-bar-chart-horiz").node().getBoundingClientRect().width;
 
@@ -28,7 +22,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       const height3 = (((this.data().length - 1) * 20));
 
       const height = (height1 + height2 + height3) - margin.top - margin.bottom;
-      
+
       const formatter = d3.formatPrefix(".2s", 1e3);
       const svg = d3.select(".grouped-bar-chart-horiz")
         .append("svg")
@@ -68,7 +62,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           return `translate(0, ${y(d.category)})`;
         });
 
-      
+
       // Add each category's name to the group for responsiveness
       groups.selectAll("text.category")
         .data(d => [d])
@@ -147,21 +141,16 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           d3.selectAll('text.value[data-year="' + d.year + '"]').attr("fill", "#999999");
         });
 
-        // on Resize stop
-        let resizeTimer;
-        window.addEventListener("resize", () => {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => {
-            this.updateProvider();
-          }, 250);
-        });
+      // on Resize stop
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          this.updateProvider();
+        }, 250);
+      });
 
     }, 500);
   }
-
- 
-
-  
-
   
 }
