@@ -46,10 +46,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .attr("transform", `translate(-180, 0)`)
         .call(d3.axisLeft(y));
 
-      d3.select(".y-axis")
-        .attr("width", "90px")
-        .style("width", 100);
-
       d3.select(".y-axis path").remove();
       d3.selectAll(".y-axis line").remove();
       d3.selectAll(".y-axis text")

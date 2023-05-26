@@ -6,8 +6,16 @@
     color: #4C4C4C;
 
     .y-axis {
-        text-anchor: start;
-        font-size: 10px;
+        text {
+            text-anchor: start;
+            font-size: 10px;
+
+            width: 100px;
+            text-overflow: ellipsis;
+            overflow-x: auto;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     }
 
     .category {
