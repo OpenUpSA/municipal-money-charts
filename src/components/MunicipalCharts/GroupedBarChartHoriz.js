@@ -44,8 +44,11 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       svg.append("g")
         .attr("class", "y-axis")
         .attr("transform", `translate(-180, 0)`)
-        .attr("width", "20px")
         .call(d3.axisLeft(y));
+
+      d3.select(".y-axis")
+        .attr("width", "90px")
+        .style("width", 100);
 
       d3.select(".y-axis path").remove();
       d3.selectAll(".y-axis line").remove();
