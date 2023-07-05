@@ -1,0 +1,39 @@
+.grouped-bar-chart-horiz {
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    color: #4C4C4C;
+
+    .y-axis {
+        text-anchor: start;
+        font-size: 10px;
+    }
+
+    .category {
+        font-size: 10px;
+    }
+
+    .bar {
+        cursor: pointer;
+    }
+
+    .year {
+        cursor: pointer;
+    }
+
+    .background {
+        fill: #f5f5f5;
+        cursor: pointer;
+    }
+
+    .value {
+        fill: rgb(76, 76, 76);
+        text-anchor: end;
+        cursor: pointer;
+    }
+
+    .text {
+        fill: rgb(76, 76, 76);
+    }
+}
