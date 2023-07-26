@@ -40,6 +40,12 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .range([0, height])
         .paddingInner(0.25);
 
+      const tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#fff");
+
       // Y axis
       svg.append("g")
         .attr("class", "y-axis")
@@ -60,7 +66,20 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       d3.select(".y-axis path").remove();
       d3.selectAll(".y-axis line").remove();
       d3.selectAll(".y-axis text")
-        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`);
+        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
+        .on("mouseover", function (d) {
+          tooltip.text(d.target.__data__);
+          return tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function (d) {
+          let rect = d.target.getBoundingClientRect();
+          return tooltip
+            .style("top", (rect.top - 20) + "px")
+            .style("left", (rect.left) + "px");
+        })
+        .on("mouseout", function () {
+          return tooltip.style("visibility", "hidden");
+        });
 
 
       // Add a group for each category.
