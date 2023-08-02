@@ -44,6 +44,8 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .append("div")
         .style("position", "absolute")
         .style("visibility", "hidden")
+        .style("font-size", "10px")
+        .style("color", "#4C4C4C")
         .style("background", "#fff");
 
       // Y axis
@@ -74,7 +76,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .on("mousemove", function (d) {
           let rect = d.target.getBoundingClientRect();
           return tooltip
-            .style("top", (rect.top - 20) + "px")
+            .style("top", (rect.top) + "px")
             .style("left", (rect.left) + "px");
         })
         .on("mouseout", function () {

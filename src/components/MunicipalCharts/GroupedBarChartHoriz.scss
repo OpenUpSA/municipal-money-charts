@@ -8,6 +8,12 @@
     .y-axis {
         text-anchor: start;
         font-size: 10px;
+
+        width: 25%;
+        overflow: visible;
+        min-width: 0;
+        padding-right: 20px;
+        box-sizing: border-box;
     }
 
     .category {
