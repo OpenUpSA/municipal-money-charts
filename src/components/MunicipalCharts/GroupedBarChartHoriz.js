@@ -23,7 +23,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
 
       const height = (height1 + height2 + height3) - margin.top - margin.bottom;
 
-      const formatter = d3.formatPrefix(".2s", 1e3);
+      const format = this._format
       const svg = d3.select(".grouped-bar-chart-horiz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -39,6 +39,14 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .domain(this.data().map(d => d.category))
         .range([0, height])
         .paddingInner(0.25);
+
+      const tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("font-size", "10px")
+        .style("color", "#4C4C4C")
+        .style("background", "#fff");
 
       // Y axis
       svg.append("g")
@@ -60,7 +68,20 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       d3.select(".y-axis path").remove();
       d3.selectAll(".y-axis line").remove();
       d3.selectAll(".y-axis text")
-        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`);
+        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
+        .on("mouseover", function (d) {
+          tooltip.text(d.target.__data__);
+          return tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function (d) {
+          let rect = d.target.getBoundingClientRect();
+          return tooltip
+            .style("top", (rect.top) + "px")
+            .style("left", (rect.left) + "px");
+        })
+        .on("mouseout", function () {
+          return tooltip.style("visibility", "hidden");
+        });
 
 
       // Add a group for each category.
@@ -138,7 +159,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .attr("data-year", d => d.year)
         .attr("x", d => x.range()[1] - 10)
         .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2)
-        .text(d => 'R' + formatter(d.value));
+        .text(d => format(d.value));
 
       groups.selectAll("rect.bar, rect.background, text.label, text.value")
         .on("mouseover", (e, d) => {
