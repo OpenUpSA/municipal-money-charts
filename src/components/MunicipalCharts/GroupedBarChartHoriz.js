@@ -131,7 +131,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .attr("data-year", d => d.year)
         .attr("x", d => containerWidth <= 400 ? x(0) + 35 : x(0))
         .attr("y", (d, i) => i * (y.bandwidth() / 4))
-        .attr("width", d => x(d.value) > 110 ? x(d.value) - 110 : x(d.value) - 10)
+        .attr("width", d => x(d.value) > 110 ? x(d.value) - 110 : x(d.value))
         .attr("height", '16px')
         .attr("fill", "#e1dce8")
         .attr("rx", 2)
