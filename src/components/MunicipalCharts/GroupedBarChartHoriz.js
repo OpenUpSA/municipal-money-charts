@@ -1,6 +1,10 @@
 import MunicipalChart from './MunicipalChart.js'
 import * as d3 from 'd3'
 
+function formatWithSpaces(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 export default class GroupedBarChartHoriz extends MunicipalChart {
   constructor(target) {
     super(target)
@@ -23,7 +27,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
 
       const height = (height1 + height2 + height3) - margin.top - margin.bottom;
 
-      const format = this._format
+      const format = this._format;
       const svg = d3.select(".grouped-bar-chart-horiz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -159,7 +163,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .attr("data-year", d => d.year)
         .attr("x", d => x.range()[1] - 10)
         .attr("y", (d, i) => i * (y.bandwidth() / 4) + (y.bandwidth() / 4) / 2)
-        .text(d => format(d.value));
+        .text(d => 'R' + formatWithSpaces(d.value));
 
       groups.selectAll("rect.bar, rect.background, text.label, text.value")
         .on("mouseover", (e, d) => {
