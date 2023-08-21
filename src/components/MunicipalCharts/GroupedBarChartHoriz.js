@@ -44,14 +44,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .range([0, height])
         .paddingInner(0.25);
 
-      const tooltip = d3.select("body")
-        .append("div")
-        .style("position", "absolute")
-        .style("visibility", "hidden")
-        .style("font-size", "10px")
-        .style("color", "#4C4C4C")
-        .style("background", "#fff");
-
       // Y axis
       svg.append("g")
         .attr("class", "y-axis")
