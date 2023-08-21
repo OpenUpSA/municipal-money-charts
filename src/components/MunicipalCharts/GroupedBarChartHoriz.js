@@ -74,17 +74,17 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       d3.selectAll(".y-axis text")
         .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
         .on("mouseover", function (d) {
-          tooltip.text(d.target.__data__);
-          return tooltip.style("visibility", "visible");
+          d.target.innerHTML = d.target.__data__;
         })
-        .on("mousemove", function (d) {
-          let rect = d.target.getBoundingClientRect();
-          return tooltip
-            .style("top", (rect.top) + "px")
-            .style("left", (rect.left) + "px");
-        })
-        .on("mouseout", function () {
-          return tooltip.style("visibility", "hidden");
+        .on("mouseout", function (d) {
+          const label = d.target.__data__;
+          const maxLength = 25;
+          if (label.length > maxLength) {
+            d.target.innerHTML = label.substring(0, maxLength) + "...";
+          }
+          else {
+            d.target.innerHTML = label;
+          }
         });
 
 
