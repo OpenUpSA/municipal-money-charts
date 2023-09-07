@@ -52,7 +52,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           d3.axisLeft(y)
             .tickFormat((d) => {
               const label = d.toString();
-              const maxLength = 24;
+              const maxLength = 25;
               if (label.length > maxLength) {
                 return label.substring(0, maxLength) + "...";
               }
@@ -65,6 +65,7 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
       d3.selectAll(".y-axis line").remove();
       d3.selectAll(".y-axis text")
         .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
+        .attr("class", "category-label")
         .on("mouseover", function (d) {
           d.target.innerHTML = d.target.__data__;
         })

@@ -42,4 +42,10 @@
     .text {
         fill: rgb(76, 76, 76);
     }
+
+    .category-label {
+        position: absolute;
+        background: white;
+        z-index: 1000;
+    }
 }
