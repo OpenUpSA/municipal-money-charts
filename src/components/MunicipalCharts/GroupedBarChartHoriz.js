@@ -44,42 +44,6 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
         .range([0, height])
         .paddingInner(0.25);
 
-      // Y axis
-      svg.append("g")
-        .attr("class", "y-axis")
-        .attr("transform", `translate(-180, 0)`)
-        .call(
-          d3.axisLeft(y)
-            .tickFormat((d) => {
-              const label = d.toString();
-              const maxLength = 25;
-              if (label.length > maxLength) {
-                return label.substring(0, maxLength) + "...";
-              }
-              return label;
-            })
-        );
-
-
-      d3.select(".y-axis path").remove();
-      d3.selectAll(".y-axis line").remove();
-      d3.selectAll(".y-axis text")
-        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
-        .attr("class", "category-label")
-        .on("mouseover", function (d) {
-          d.target.innerHTML = d.target.__data__;
-        })
-        .on("mouseout", function (d) {
-          const label = d.target.__data__;
-          const maxLength = 25;
-          if (label.length > maxLength) {
-            d.target.innerHTML = label.substring(0, maxLength) + "...";
-          }
-          else {
-            d.target.innerHTML = label;
-          }
-        });
-
 
       // Add a group for each category.
       const groups = svg.selectAll("g.category")
@@ -168,6 +132,53 @@ export default class GroupedBarChartHoriz extends MunicipalChart {
           d3.selectAll('rect.bar[data-year="' + d.year + '"]').attr("fill", "#e1dce8");
           d3.selectAll('text.year[data-year="' + d.year + '"]').attr("fill", "#999999");
           d3.selectAll('text.value[data-year="' + d.year + '"]').attr("fill", "#999999");
+        });
+
+      // https://stackoverflow.com/questions/42327183/d3-tick-with-background
+      let filter = svg.append("defs").append("filter")
+        .attr("x", "0")
+        .attr("y", "0")
+        .attr("width", "1")
+        .attr("height", "1")
+        .attr("id", "background")
+      filter.append("feFlood")
+        .attr("flood-color", "white");
+      filter.append("feComposite")
+        .attr("in", "SourceGraphic");
+
+      // Y axis
+      svg.append("g")
+        .attr("class", "y-axis")
+        .attr("transform", `translate(-180, 0)`)
+        .call(
+          d3.axisLeft(y)
+            .tickFormat((d) => {
+              const label = d.toString();
+              const maxLength = 25;
+              if (label.length > maxLength) {
+                return label.substring(0, maxLength) + "...";
+              }
+              return label;
+            })
+        );
+
+      d3.select(".y-axis path").remove();
+      d3.selectAll(".y-axis line").remove();
+      d3.selectAll(".y-axis text")
+        .attr("transform", `translate(0, -${(y.bandwidth() / 4) + itemPadding})`)
+        .attr("filter", "url(#background)")
+        .on("mouseover", function (d) {
+          d.target.innerHTML = d.target.__data__;
+        })
+        .on("mouseout", function (d) {
+          const label = d.target.__data__;
+          const maxLength = 25;
+          if (label.length > maxLength) {
+            d.target.innerHTML = label.substring(0, maxLength) + "...";
+          }
+          else {
+            d.target.innerHTML = label;
+          }
         });
 
       // on Resize stop
